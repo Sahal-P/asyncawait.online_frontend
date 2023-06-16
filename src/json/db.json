@@ -1,0 +1,53 @@
+{
+    "users":[
+        {
+          "id": "1",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "password": "Password123"
+        },
+        {
+          "id": "2",
+          "name": "Alice Smith",
+          "email": "alicesmith@example.com",
+          "password": "SecurePassword1"
+        },
+        {
+          "id": "3",
+          "name": "David Johnson",
+          "email": "davidjohnson@example.com",
+          "password": "Pass1234"
+        },
+        {
+          "id": "4",
+          "name": "Emily Davis",
+          "email": "emilydavis@example.com",
+          "password": "Password!@#$"
+        },
+        {
+          "id": "5",
+          "name": "Michael Wilson",
+          "email": "michaelwilson@example.com",
+          "password": "SecurePass1"
+        },
+        {
+          "id": "6",
+          "name": "Sophia Thomas",
+          "email": "sophiathomas@example.com",
+          "password": "StrongPass12"
+        },
+        {
+          "id": "7",
+          "name": "James Brown",
+          "email": "jamesbrown@example.com",
+          "password": "Passw0rd123"
+        },
+        {
+          "id": "8",
+          "name": "Olivia Martinez",
+          "email": "oliviamartinez@example.com",
+          "password": "SecretPass!23"
+        }
+        
+    ]
+}
