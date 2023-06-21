@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { LoadingActions } from "../slice/loadingSlice";
 import { toast } from "react-toastify";
 import Cookies from 'js-cookie';
+import moment from "moment";
 
 
 
@@ -24,7 +25,7 @@ export function* LoginAPIsaga({payload, navigate}) {
     try {
       const response = yield LoginAPI(payload);
       // if(response.code ==)
-      Cookies.set('_X_identifier', JSON.stringify(response.data.id));
+      Cookies.set('_X_identifier', `${moment()}${JSON.stringify(response.data.id)}`);
       yield put(userActions.setUser(response.data));
       yield put(LoadingActions.setLoading(false))
       navigate('/')

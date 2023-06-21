@@ -4,9 +4,16 @@ import SelectSection from "../components/SelectSection";
 import ChatBox from "../components/ChatBox";
 import { useDispatch, useSelector } from "react-redux";
 import { createContext } from "react";
-import { GET_CHAT_DETAILS, GET_CONTACTS, GET_FRIENDS, GET_USERS } from "../redux/sagas/types";
+import {
+  GET_CHAT_DETAILS,
+  GET_CONTACTS,
+  GET_FRIENDS,
+  GET_USERS,
+} from "../redux/sagas/types";
 import AddUser from "../components/AddUser";
-import Sidebar from "../components/Sidebar";
+import ImageDetails from "../components/ImageDetails";
+import ProfileSidebar from "../components/ProfileSidebar";
+import ChatDetails from "../components/ChatDetails";
 
 export const UserContext = createContext(null);
 
@@ -20,27 +27,26 @@ const Home = () => {
     //  dispatch({type: GET_FRIENDS});
     dispatch({ type: GET_CONTACTS });
     dispatch({ type: GET_USERS });
-    
   }, []);
-  useEffect(()=>{
-    if (Object.keys(selected).length !== 0 ) {
-      
+  useEffect(() => {
+    if (Object.keys(selected).length !== 0) {
       setChatBox(true);
     }
-  },[selected])
-
+  }, [selected]);
 
   return (
     <UserContext.Provider value={{ user, contacts }}>
       <section className="w-full h-screen flex bg-secondary overflow-hidden">
-        {/* <Sidebar/> */}
+        {/* <ImageDetails /> */}
         <div className="h-full w-[410px] bg-secondary border-r border-slate-700 relative">
+          {/* <ProfileSidebar /> */}
           <NavBar />
           <SelectSection />
         </div>
         {chatBox ? (
           <>
             <ChatBox />
+            {/* <ChatDetails /> */}
           </>
         ) : (
           <AddUser />
