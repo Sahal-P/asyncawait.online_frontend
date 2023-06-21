@@ -62,7 +62,7 @@ const ChatBox = () => {
   }, [chat_id]);
 
   useEffect(() => {
-    dispatch({ type: GET_CHAT_DETAILS, id: selected.contact.id });
+    dispatch({ type: GET_CHAT_DETAILS, id: selected?.contact?.id });
     chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
   }, []);
 
