@@ -22,7 +22,6 @@ const ChatBox = () => {
   const [messages, setMessages] = useState(
     useSelector((state) => state.chat.messages)
   );
-  let dateTime;
 
   useEffect(() => {
     let url = `ws://localhost:8000/ws/chat/${chat_id}/`;
