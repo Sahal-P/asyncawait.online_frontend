@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 * {
     margin: 0;
 }
@@ -21,4 +22,13 @@
   
   ::-webkit-scrollbar-thumb:hover {
     background: #365663; 
+  }
+
+::-webkit-autofill{
+      transition-delay: '9999s';
+      transition-property: 'background-color, color';
+    }
+::-webkit-autofill:focus{
+      transition-delay: '9999s';
+      transition-property: 'background-color, color';
   }

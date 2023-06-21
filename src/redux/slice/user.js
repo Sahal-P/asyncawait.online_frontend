@@ -18,22 +18,24 @@ function createinitialState() {
       email: "",
       phone_number: "",
     },
-    friends:[],
+    contacts:[],
   };
 }
 
 function createReducers() {
   return {
     setUser,
-    setFriends,
+    setContacts,
+    addContact,
   };
   function setUser(state, action) {
     state.user = action.payload;
   }
-  function setFriends(state, action) {
-    console.log(action.payload);
-    // state.users.push(action.payload)
-    state.friends = action.payload;
+  function setContacts(state, action) {
+    state.contacts = action.payload;
+  }
+  function addContact(state, action) {
+    state.contacts.push(action.payload)
   }
 }
 

@@ -17,7 +17,7 @@ const ChatProfileHeader = ({user}) => {
         />
       </div>
       <div className="ml-3">
-        <h1 className="text-lg text-white font-medium">{user.username}</h1>
+        <h1 className="text-lg text-white font-medium">{user?.contact?.username}</h1>
         <p className="text-xs text-slate-400">last seen today at 2:30pm</p>
       </div>
       <div className="ml-auto h-full flex gap-4 items-center">

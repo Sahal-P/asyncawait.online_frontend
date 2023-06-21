@@ -9,9 +9,9 @@ import { useContext } from 'react';
 const SelectSection = () => {
     const [search, setSearch] = useState(false)
     const [filter,setFilter] = useState(false)
-    const { user, friends } = useContext(UserContext);
+    const { user, contacts } = useContext(UserContext);
     useEffect(()=>{
-    },[])
+    },[contacts])
   return (
     <>
     <SearchBar filter={filter} setFilter={setFilter}/>
@@ -22,7 +22,7 @@ const SelectSection = () => {
     </div>
     ):(
         <>
-        {friends.map((friend) => (
+        {contacts.map((friend) => (
           <UserCard key={friend.id} user={friend}/>
         ))}
         

@@ -1,9 +1,11 @@
+import moment from "moment"
+
 const MessageSender = ({message}) => {
   return (
-    <div className="text-white w-fit h-fit max-w-[60%] h-8 rounded-b-lg rounded-tr-lg px-1 mt-5 mr-3 bg-primary relative items-center flex py-1 group">
-            {/* <MenuTextMsgL menuTextL={menuTextL} /> */}
-            <p className="text-sm px-2 overflow-hidden overflow-ellipsis">{message.message}</p>
-            <span className="text-primary absolute top-0 -left-2">
+    <div className="text-white w-fit h-fit max-w-[60%] rounded-b-lg rounded-tr-lg px-1 mt-1 mb-2 mr-3 bg-sender relative items-center flex py-1 group">
+            {/* <MenuTextMsgL menuTextL={menuTextL} /> */}  
+            <p className="text-sm px-2 break-all">{message.content}</p>
+            <span className="text-sender absolute top-0 -left-2">
               <svg viewBox="0 0 8 13" width="8" height="13" className="">
                 <path
                   opacity=".13"
@@ -16,7 +18,7 @@ const MessageSender = ({message}) => {
                 ></path>
               </svg>
             </span>
-            <p className="text-icon text-xs mt-auto mr-1">{message.time}</p>
+            <p className="text-icon text-xs mt-auto mr-1 whitespace-nowrap">{moment(message.timestampe).format("h:mm a")}</p>
             <button
               id="menuTextbtn"
               className="absolute right-1 top-1 text-icon bg-primary/70 rounded-b-full backdrop:blur-xl opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-200"
