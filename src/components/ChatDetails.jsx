@@ -1,12 +1,21 @@
+import { useEffect } from "react";
 import GroupInfo from "./GroupInfo";
 import UserInfo from "./UserInfo";
 
-const ChatDetails = () => {
+const ChatDetails = ({ setChatDetails, chatDetails }) => {
   const selectedChat = false;
+
   return (
-    <div className="w-[410px] z-50 h-full border-l bg-black/30 border-slate-700 fixed right-0 overflow-y-scroll">
+    <div
+      className={`${
+        chatDetails ? "block " : "hidden "
+      }w-[410px] z-50 h-full border-l bg-black/30 border-slate-700 fixed right-0 overflow-y-scroll`}
+    >
       <div className="h-[60px] w-full bg-primary flex items-center gap-6 fixed z-30 top-0">
-        <button className="text-icon ml-6" onClick={() => setProfile(false)}>
+        <button
+          className="text-icon ml-6"
+          onClick={() => setChatDetails(!chatDetails)}
+        >
           <svg
             viewBox="0 0 24 24"
             height="24"
@@ -26,8 +35,8 @@ const ChatDetails = () => {
           selectedChat ? "Group" : "Contact"
         } info`}</h1>
       </div>
-      {/* <UserInfo /> */}
-      <GroupInfo />
+      <UserInfo />
+      {/* <GroupInfo /> */}
     </div>
   );
 };

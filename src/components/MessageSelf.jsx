@@ -4,10 +4,8 @@ import DeliverdTick from "./DeliverdTick";
 import { useEffect } from "react";
 import moment from "moment";
 
-
-const MessageSelf = ({message}) => {
-  useEffect(()=>{
-  },[])
+const MessageSelf = ({ message }) => {
+  useEffect(() => {}, []);
   return (
     <div className="text-white w-fit h-fit max-w-[50%] h-8 rounded-b-lg rounded-tl-lg px-1 mb-1 mt-2 mr-3 ml-auto bg-[#008069] relative items-center flex py-1 group">
       {/* <MenuTextMsg menuText={menuText} setMenuText={setMenuText} /> */}
@@ -25,16 +23,21 @@ const MessageSelf = ({message}) => {
         </svg>
       </span>
       {/* <div className="w-fit"> */}
-      <p className="text-icon text-xs mt-auto mr-1 whitespace-nowrap">{moment(message.timestampe).format("h:mm a")}</p>
+      <p className="text-icon text-xs mt-auto mr-1 whitespace-nowrap">
+        {moment(message.timestampe).format("h:mm a")}
+      </p>
       {/* </div> */}
       <span className="text-sky-300 mt-auto ">
-        <svg width="16" height="11" viewBox="0 0 16 11" fill="none" className="">
-          {
-            message.status === 'SENT' && <SendTick/> || message.status === 'DELIVERD' && <DeliverdTick/> || message.status === 'SEEN' && <SeenTick/>
-          }
-          
-          
-          
+        <svg
+          width="16"
+          height="11"
+          viewBox="0 0 16 11"
+          fill="none"
+          className=""
+        >
+          {(message.status === "SENT" && <SendTick />) ||
+            (message.status === "DELIVERD" && <DeliverdTick />) ||
+            (message.status === "SEEN" && <SeenTick />)}
         </svg>
       </span>
       <button

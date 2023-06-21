@@ -1,35 +1,34 @@
 import { useDispatch } from "react-redux";
 import { MESSAGE_UNKNOWN } from "../redux/sagas/types";
 
-const UserSearchCard = ({user}) => {
-  const dispatch = useDispatch()
+const UserSearchCard = ({ user }) => {
+  const dispatch = useDispatch();
 
-  const handleAddtoFriends = () =>{
-    dispatch({type: MESSAGE_UNKNOWN, id: user.id})
-  }
+  const handleAddtoFriends = () => {
+    dispatch({ type: MESSAGE_UNKNOWN, id: user.id });
+  };
   return (
     <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4">
-
-    <div className="max-w-xs mx-auto mt-8 bg-secondary shadow-xl rounded-lg text-gray-900">
-      <div className="rounded-t-lg h-24 overflow-hidden">
-        <img
-          className="object-cover object-top w-full h-full"
-          src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-          alt="Mountain"
-        />
-      </div>
-      <div className="mx-auto w-24 h-24 relative -mt-12 border-4 border-white rounded-full overflow-hidden">
-        <img
-          className="object-cover object-center w-full h-full"
-          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-          alt="Woman looking front"
-        />
-      </div>
-      <div className="text-center mt-2">
-        <h2 className="font-semibold text-white text-sm">{user.username}</h2>
-        <p className="text-gray-500 text-xs">Freelance Web Designer</p>
-      </div>
-      {/* <ul className="py-2 mt-2 text-gray-700 flex items-center justify-around">
+      <div className="max-w-xs mx-auto mt-8 bg-secondary shadow-xl rounded-lg text-gray-900">
+        <div className="rounded-t-lg h-24 overflow-hidden">
+          <img
+            className="object-cover object-top w-full h-full"
+            src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+            alt="Mountain"
+          />
+        </div>
+        <div className="mx-auto w-24 h-24 relative -mt-12 border-4 border-white rounded-full overflow-hidden">
+          <img
+            className="object-cover object-center w-full h-full"
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+            alt="Woman looking front"
+          />
+        </div>
+        <div className="text-center mt-2">
+          <h2 className="font-semibold text-white text-sm">{user.username}</h2>
+          <p className="text-gray-500 text-xs">Freelance Web Designer</p>
+        </div>
+        {/* <ul className="py-2 mt-2 text-gray-700 flex items-center justify-around">
         <li className="flex flex-col items-center justify-around">
           <svg
             className="w-3 fill-current text-blue-900"
@@ -61,12 +60,15 @@ const UserSearchCard = ({user}) => {
           <div className="text-xs">15</div>
         </li>
       </ul> */}
-      <div className="p-2 mx-4 mt-2">
-        <button onClick={handleAddtoFriends} className="w-full block rounded-full bg-line hover:shadow-lg font-semibold text-white px-4 py-1 text-xs">
-          Message
-        </button>
+        <div className="p-2 mx-4 mt-2">
+          <button
+            onClick={handleAddtoFriends}
+            className="w-full block rounded-full bg-line hover:shadow-lg font-semibold text-white px-4 py-1 text-xs"
+          >
+            Message
+          </button>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

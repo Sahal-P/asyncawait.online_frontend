@@ -23,11 +23,14 @@ const Home = () => {
   const selected = useSelector((state) => state.selected.user);
   const user = useSelector((state) => state.user.user);
   const contacts = useSelector((state) => state.user.contacts);
+  const [sideBar, setSidebar] = useState(false);
+  const [chatDetails, setChatDetails] = useState(false);
+
   useEffect(() => {
-    //  dispatch({type: GET_FRIENDS});
     dispatch({ type: GET_CONTACTS });
     dispatch({ type: GET_USERS });
   }, []);
+
   useEffect(() => {
     if (Object.keys(selected).length !== 0) {
       setChatBox(true);
@@ -35,18 +38,23 @@ const Home = () => {
   }, [selected]);
 
   return (
-    <UserContext.Provider value={{ user, contacts }}>
+    <UserContext.Provider
+      value={{ user, contacts, chatDetails, setChatDetails }}
+    >
       <section className="w-full h-screen flex bg-secondary overflow-hidden">
         {/* <ImageDetails /> */}
         <div className="h-full w-[410px] bg-secondary border-r border-slate-700 relative">
-          {/* <ProfileSidebar /> */}
-          <NavBar />
+          <ProfileSidebar setSidebar={setSidebar} sideBar={sideBar} />
+          <NavBar setSidebar={setSidebar} />
           <SelectSection />
         </div>
         {chatBox ? (
           <>
             <ChatBox />
-            {/* <ChatDetails /> */}
+            <ChatDetails
+              chatDetails={chatDetails}
+              setChatDetails={setChatDetails}
+            />
           </>
         ) : (
           <AddUser />

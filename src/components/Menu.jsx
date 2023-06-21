@@ -1,10 +1,5 @@
-
 const Menu = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default Menu
+export default Menu;

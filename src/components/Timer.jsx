@@ -37,7 +37,7 @@ const Timer = () => {
   // Reset timer on DOM click
   const handleTimerReset = () => {
     clearInterval(timer);
-    setCountDownDate(new Date().getTime() + time * 60 * 1000)
+    setCountDownDate(new Date().getTime() + time * 60 * 1000);
   };
 
   return (

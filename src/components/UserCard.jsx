@@ -5,15 +5,13 @@ import { GET_CHAT_DETAILS } from "../redux/sagas/types";
 
 const UserCard = ({ user }) => {
   const [isReaded, setIsReaded] = useState(true);
-  const [friend, setFriend] = useState(user)
+  const [friend, setFriend] = useState(user);
   const dispatch = useDispatch();
-  
+
   function readed() {
     setIsReaded(false);
-    dispatch(
-      selectedActions.setUser(user)
-      );
-    dispatch({type:GET_CHAT_DETAILS, id: user.contact.id})
+    dispatch(selectedActions.setUser(user));
+    dispatch({ type: GET_CHAT_DETAILS, id: user.contact.id });
   }
   return (
     <div

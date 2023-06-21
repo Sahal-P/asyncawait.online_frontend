@@ -12,7 +12,7 @@ export const LoadingReducers = slice.reducer;
 
 function createinitialState() {
   return {
-    state: false
+    state: false,
   };
 }
 function createReducers() {

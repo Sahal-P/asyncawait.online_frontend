@@ -1,6 +1,6 @@
 import { AiOutlineSearch } from "react-icons/ai";
 
-const SearchBar = ({filter, setFilter}) => {
+const SearchBar = ({ filter, setFilter }) => {
   return (
     <div className="flex w-full h-[53px] py-[7px] px-3">
       <form action="" className="w-full">

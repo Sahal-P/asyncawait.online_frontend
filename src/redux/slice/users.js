@@ -10,7 +10,7 @@ export const usersReducers = slice.reducer;
 
 function createinitialState() {
   return {
-    users: []
+    users: [],
   };
 }
 

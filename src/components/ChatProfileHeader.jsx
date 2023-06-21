@@ -1,15 +1,17 @@
+import { useContext } from "react";
 import OptionChatBox from "./OptionChatBox";
 import ThreeDotOptionIcon from "./ThreeDotOptionIcon";
+import { UserContext } from "../pages/Home";
 
-const ChatProfileHeader = ({user}) => {
-
+const ChatProfileHeader = ({ user }) => {
+  const { setChatDetails, chatDetails } = useContext(UserContext);
   const option = false;
   return (
     <div className="z-40 w-full h-[60px] bg-primary flex items-center pl-3 pr-6 relative">
       {/* <OptionChatBox/> */}
       <div
         className="w-[45px] h-[45px] rounded-full overflow-hidden flex items-center justify-center cursor-pointer"
-        onClick={() => setProfile(true)}
+        onClick={() => setChatDetails(!chatDetails)}
       >
         <img
           src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_boy_person_avatar_people_white_tone_icon_159357.png"
@@ -17,7 +19,9 @@ const ChatProfileHeader = ({user}) => {
         />
       </div>
       <div className="ml-3">
-        <h1 className="text-lg text-white font-medium">{user?.contact?.username}</h1>
+        <h1 className="text-lg text-white font-medium">
+          {user?.contact?.username}
+        </h1>
         <p className="text-xs text-slate-400">last seen today at 2:30pm</p>
       </div>
       <div className="ml-auto h-full flex gap-4 items-center">
@@ -43,7 +47,7 @@ const ChatProfileHeader = ({user}) => {
           className={`text-icon ${option && "bg-slate-700"} p-1 rounded-full`}
           onClick={() => setOption(!option)}
         >
-          <ThreeDotOptionIcon/>
+          <ThreeDotOptionIcon />
         </button>
       </div>
     </div>
