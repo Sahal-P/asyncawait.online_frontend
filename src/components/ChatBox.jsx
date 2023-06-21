@@ -10,21 +10,20 @@ import { UserContext } from "../pages/Home";
 import moment from "moment";
 import { MESSAGE_TYPE } from "../types";
 import { GET_CHAT_DETAILS } from "../redux/sagas/types";
+import { CHAT_WS, WS } from "../apis/socket";
 
 const ChatBox = () => {
   const chatboxRef = useRef(null);
   const dispatch = useDispatch();
   const selected = useSelector((state) => state.selected.user);
   const chat_id = useSelector((state) => state.chat.chat_id);
-  const chat = useSelector((state) => state.chat.messages);
+  const history = useSelector((state) => state.chat.messages);
   const user = useSelector((state) => state.user.user);
   const socket = useRef(null);
-  const [messages, setMessages] = useState(
-    useSelector((state) => state.chat.messages)
-  );
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    let url = `ws://localhost:8000/ws/chat/${chat_id}/`;
+    let url = `${WS}${CHAT_WS}${chat_id}/`;
     const _socket = new WebSocket(url);
 
     const handleSocketMessage = (e) => {
@@ -64,15 +63,12 @@ const ChatBox = () => {
 
   useEffect(() => {
     dispatch({ type: GET_CHAT_DETAILS, id: selected.contact.id });
-}, []);
-
-useEffect(()=>{
-
-},[chat])
+    chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+  }, []);
 
   useEffect(() => {
-    console.log(messages,'messages');
-  }, [messages]);
+    chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+  }, [history, messages]);
 
   const send_message = (message) => {
     message.sender = user.id;
@@ -95,6 +91,13 @@ useEffect(()=>{
           className="w-full h-[90%] flex flex-1 flex-col relative overflow-y-scroll px-4"
           ref={chatboxRef}
         >
+          {history.map((message) =>
+            message.sender === user.id ? (
+              <MessageSelf key={message.id} message={message} />
+            ) : (
+              <MessageSender key={message.id} message={message} />
+            )
+          )}
           {messages.map((message) =>
             message.sender === user.id ? (
               <MessageSelf key={message.id} message={message} />
