@@ -12,11 +12,9 @@ export const selectedReducers = slice.reducer;
 
 function createinitialState() {
   return {
-    state:false,
+    state: false,
     user: {},
-    messages:{
-
-    }
+    messages: {},
   };
 }
 

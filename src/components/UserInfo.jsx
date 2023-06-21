@@ -105,9 +105,7 @@ const UserInfo = () => {
             <h1 className="text-white">Mute Notifications</h1>
           </div>
           <div className="h-4 w-10 bg-slate-600 ml-auto rounded-full flex items-center relative">
-            <div className="w-5 h-5 rounded-full absolute bg-icon -top-[2px] cursor-pointer left-5">
-
-            </div>
+            <div className="w-5 h-5 rounded-full absolute bg-icon -top-[2px] cursor-pointer left-5"></div>
           </div>
         </div>
 

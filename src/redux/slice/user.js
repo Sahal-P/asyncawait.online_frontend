@@ -18,7 +18,7 @@ function createinitialState() {
       email: "",
       phone_number: "",
     },
-    contacts:[],
+    contacts: [],
   };
 }
 
@@ -35,7 +35,7 @@ function createReducers() {
     state.contacts = action.payload;
   }
   function addContact(state, action) {
-    state.contacts.push(action.payload)
+    state.contacts.push(action.payload);
   }
 }
 

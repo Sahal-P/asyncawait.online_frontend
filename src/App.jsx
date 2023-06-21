@@ -15,7 +15,7 @@ import { openDB } from "idb";
 
 function App() {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch({ type: SET_LOADING, payload: false });
     openDatabase();
@@ -28,29 +28,54 @@ function App() {
         // Example:
         const store = db.createObjectStore("message", { keyPath: "id" });
         store.createIndex("message_message", ["message"], { unique: false });
-        store.createIndex("id_and_message", ["id", "message"], { unique: false });
+        store.createIndex("id_and_message", ["id", "message"], {
+          unique: false,
+        });
       },
-    }
-    );
-    db.onerror = (event) =>{
+    });
+    db.onerror = (event) => {
       console.log("error occured", event);
-    }
+    };
     const transaction = db.transaction("message", "readwrite");
     const msg_store = transaction.objectStore("message");
-    const messageIndex = msg_store.index("message_message")
-    msg_store.put({id:"sdiufv89u9efvh8ydbvfv", message:"hi hellloo!", isReaded:true})
-    msg_store.put({id:"dfkvnkdafknjfdajvjsjf", message:"i am here", isReaded:false})
-    msg_store.put({id:"ttuysvducuycubububhui", message:"i am here", isReaded:false})
-    msg_store.put({id:"adfkjvnadkfnvkadsnvak", message:"where are you", isReaded:true})
-    msg_store.put({id:"afkjvaksnaksdkjankasn", message:"bye bye", isReaded:false})
-    msg_store.put({id:"fvjdnfuijkkvv9876chhv", message:"not now", isReaded:false})
+    const messageIndex = msg_store.index("message_message");
+    msg_store.put({
+      id: "sdiufv89u9efvh8ydbvfv",
+      message: "hi hellloo!",
+      isReaded: true,
+    });
+    msg_store.put({
+      id: "dfkvnkdafknjfdajvjsjf",
+      message: "i am here",
+      isReaded: false,
+    });
+    msg_store.put({
+      id: "ttuysvducuycubububhui",
+      message: "i am here",
+      isReaded: false,
+    });
+    msg_store.put({
+      id: "adfkjvnadkfnvkadsnvak",
+      message: "where are you",
+      isReaded: true,
+    });
+    msg_store.put({
+      id: "afkjvaksnaksdkjankasn",
+      message: "bye bye",
+      isReaded: false,
+    });
+    msg_store.put({
+      id: "fvjdnfuijkkvv9876chhv",
+      message: "not now",
+      isReaded: false,
+    });
     // const data = msg_store.get("fvjdnfuijkkvv9876chhv");
-    const msgindxdata = messageIndex.getAll(["i am here"]) 
+    const msgindxdata = messageIndex.getAll(["i am here"]);
     // data.then((data)=>console.log(data))
     // msgindxdata.then((data)=> console.log(data))
-    transaction.oncomplete = () =>{
-      db.close()
-    }
+    transaction.oncomplete = () => {
+      db.close();
+    };
   }
 
   return (

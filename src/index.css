@@ -2,33 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 * {
-    margin: 0;
+  margin: 0;
 }
-::-webkit-scrollbar{
-    width: 6px;
-
+::-webkit-scrollbar {
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #233840; 
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #304c57; 
-    border-radius: 5px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #365663; 
-  }
-
-::-webkit-autofill{
-      transition-delay: '9999s';
-      transition-property: 'background-color, color';
-    }
-::-webkit-autofill:focus{
-      transition-delay: '9999s';
-      transition-property: 'background-color, color';
-  }
+  background: #233840;
+}
+::-webkit-scrollbar-thumb {
+  background: #304c57;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #365663;
+}
+::-webkit-autofill {
+  transition-delay: '9999s';
+  transition-property: 'background-color, color';
+}
+::-webkit-autofill:focus {
+  transition-delay: '9999s';
+  transition-property: 'background-color, color';
+}

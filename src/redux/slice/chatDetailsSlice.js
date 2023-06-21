@@ -25,7 +25,7 @@ function createReducers() {
     state.chat_id = action.payload;
   }
   function setMessages(state, action) {
-    state.messages = action.payload
+    state.messages = action.payload;
   }
 }
 

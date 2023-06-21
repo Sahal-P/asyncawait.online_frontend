@@ -1,5 +1,5 @@
-import React from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
+import React from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const UserSearchBar = () => {
   return (
@@ -15,9 +15,8 @@ const UserSearchBar = () => {
           />
         </div>
       </form>
-      
     </div>
-  )
-}
+  );
+};
 
-export default UserSearchBar
+export default UserSearchBar;
