@@ -4,11 +4,13 @@ import { useDispatch } from "react-redux"
 import { useState } from "react"
 import CircularProgress from '@mui/material/CircularProgress';
 import CircularIndeterminate from "../components/CircularIndeterminate";
+import { Alert, TextField } from "@mui/material";
 
 
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  
     const [user, setUser] = useState({
         phone_number: '',
         password: '',
@@ -30,11 +32,11 @@ const Login = () => {
       href="#"
       className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
     >
-      <img
+      {/* <img
         className="w-8 h-8 mr-2"
         src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
         alt="logo"
-      />
+      /> */}
       Async Await
     </a>
     <div className="w-full bg-primary rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-700">
@@ -49,9 +51,9 @@ const Login = () => {
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Your Phone Number
+              Phone 
             </label>
-            <input
+            {/* <input
               onChange={handleChange('phone_number')}
               value={user.phone_number}
               type="number"
@@ -60,7 +62,36 @@ const Login = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="+91 000 000 0000"
               required=""
-            />
+            /> */}
+            <TextField
+            onChange={handleChange('phone_number')}
+            value={user.phone_number}
+            
+          // id="standard"
+          label="Enter your phone number"
+          placeholder="000 000 0000"
+          multiline
+          variant="standard"
+          color="success"
+          className="w-full text-white"
+          type="number"
+          style={{
+            color: 'white',
+          }}
+          InputLabelProps={{
+            style: {
+              color: 'white',
+            },
+          }}
+          InputProps={{
+            inputProps: {
+              style: {
+                color: 'white',
+              },
+              type: 'number',
+            },
+          }}
+        />
           </div>
           
           <div>
@@ -70,7 +101,7 @@ const Login = () => {
             >
               Password
             </label>
-            <input
+            {/* <input
               onChange={handleChange('password')}
               value={user.password}
               type="password"
@@ -79,7 +110,32 @@ const Login = () => {
               placeholder="••••••••"
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required=""
-            />
+            /> */}
+            <TextField
+            onChange={handleChange('password')}
+            value={user.password}
+          id="standard-textarea"
+          label="Enter your password"
+          placeholder="••••••••"
+          multiline
+          variant="standard"
+          color="success"
+          className="w-full"
+          style={{
+            color: 'white',
+          }}
+          InputLabelProps={{
+            style: {
+              color: 'white',
+            },
+          }}
+          InputProps={{
+            style: {
+              color: 'white',
+            },
+            type: 'password',
+          }}
+        />
           </div>
           
        

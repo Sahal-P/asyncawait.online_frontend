@@ -13,6 +13,7 @@ export default {
         "line": "#00ab88",
         "hero": "#1e2e35",
         "story":"#1c242c",
+        "sender":"#35444c",
         "dark_purple": "#000235",
         "btn_primary": "#7e7ee3",
         "heading_color": "#abd9d9",

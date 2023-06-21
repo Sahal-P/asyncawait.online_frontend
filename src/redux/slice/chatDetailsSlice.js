@@ -2,35 +2,31 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const name = "selected";
+const name = "chat";
 const initialState = createinitialState();
 const reducers = createReducers();
 const slice = createSlice({ name, initialState, reducers });
 
-export const selectedActions = { ...slice.actions };
-export const selectedReducers = slice.reducer;
+export const ChatActions = { ...slice.actions };
+export const ChatReducers = slice.reducer;
 
 function createinitialState() {
   return {
-    state:false,
-    user: {},
-    messages:{
-
-    }
+    chat_id: null,
+    messages: [],
   };
 }
-
 function createReducers() {
   return {
-    setUser,
-    setState,
+    setChatId,
+    setMessages,
   };
-  function setUser(state, action) {
-    state.user = action.payload;
+  function setChatId(state, action) {
+    state.chat_id = action.payload;
   }
-  function setState(state, action) {
-    state.state = action.payload;
+  function setMessages(state, action) {
+    state.messages = action.payload
   }
 }
 
-export default selectedReducers;
+export default ChatReducers;

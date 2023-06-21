@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { selectedActions } from "../redux/slice/selectedUserSlice";
+import { GET_CHAT_DETAILS } from "../redux/sagas/types";
 
 const UserCard = ({ user }) => {
   const [isReaded, setIsReaded] = useState(true);
@@ -10,12 +11,9 @@ const UserCard = ({ user }) => {
   function readed() {
     setIsReaded(false);
     dispatch(
-      selectedActions.setUser({
-        id: user?.id,
-        username: user?.username,
-        phone: user?.phone,
-      })
-    );
+      selectedActions.setUser(user)
+      );
+    dispatch({type:GET_CHAT_DETAILS, id: user.contact.id})
   }
   return (
     <div
@@ -31,7 +29,7 @@ const UserCard = ({ user }) => {
       </div>
       <div className="h-full w-[80%] py-3 border-b-[1px] border-slate-700 border-wid mr-3 hover:border-0 flex justify-between group">
         <div>
-          <h1 className="capitalize text-white">{user?.username}</h1>
+          <h1 className="capitalize text-white">{user?.contact.username}</h1>
           <p
             className={`${isReaded ? "text-white" : "text-slate-500"} text-sm`}
           >

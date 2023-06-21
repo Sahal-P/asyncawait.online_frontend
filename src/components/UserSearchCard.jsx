@@ -1,4 +1,12 @@
-const UserSearchCard = () => {
+import { useDispatch } from "react-redux";
+import { MESSAGE_UNKNOWN } from "../redux/sagas/types";
+
+const UserSearchCard = ({user}) => {
+  const dispatch = useDispatch()
+
+  const handleAddtoFriends = () =>{
+    dispatch({type: MESSAGE_UNKNOWN, id: user.id})
+  }
   return (
     <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4">
 
@@ -18,7 +26,7 @@ const UserSearchCard = () => {
         />
       </div>
       <div className="text-center mt-2">
-        <h2 className="font-semibold text-white text-sm">Sarah Smith</h2>
+        <h2 className="font-semibold text-white text-sm">{user.username}</h2>
         <p className="text-gray-500 text-xs">Freelance Web Designer</p>
       </div>
       {/* <ul className="py-2 mt-2 text-gray-700 flex items-center justify-around">
@@ -54,7 +62,7 @@ const UserSearchCard = () => {
         </li>
       </ul> */}
       <div className="p-2 mx-4 mt-2">
-        <button className="w-full block rounded-full bg-line hover:shadow-lg font-semibold text-white px-4 py-1 text-xs">
+        <button onClick={handleAddtoFriends} className="w-full block rounded-full bg-line hover:shadow-lg font-semibold text-white px-4 py-1 text-xs">
           Message
         </button>
       </div>
