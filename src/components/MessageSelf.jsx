@@ -9,7 +9,7 @@ const MessageSelf = ({ message }) => {
   return (
     <div className="text-white w-fit h-fit max-w-[50%] h-8 rounded-b-lg rounded-tl-lg px-1 mb-1 mt-2 mr-3 ml-auto bg-[#008069] relative items-center flex py-1 group">
       {/* <MenuTextMsg menuText={menuText} setMenuText={setMenuText} /> */}
-      <p className="text-sm px-2 break-all">{message.content}</p>
+      <p className="text-sm px-2 break-all">{message?.content}</p>
       <span className="text-[#008069] absolute top-0 -right-2">
         <svg viewBox="0 0 8 13" width="8" height="13">
           <path
@@ -24,7 +24,7 @@ const MessageSelf = ({ message }) => {
       </span>
       {/* <div className="w-fit"> */}
       <p className="text-icon text-xs mt-auto mr-1 whitespace-nowrap">
-        {moment(message.timestampe).format("h:mm a")}
+        {moment(message?.timestampe).format("h:mm a")}
       </p>
       {/* </div> */}
       <span className="text-sky-300 mt-auto ">
@@ -35,9 +35,9 @@ const MessageSelf = ({ message }) => {
           fill="none"
           className=""
         >
-          {(message.status === "SENT" && <SendTick />) ||
-            (message.status === "DELIVERD" && <DeliverdTick />) ||
-            (message.status === "SEEN" && <SeenTick />)}
+          {(message?.status === "SENT" && <SendTick />) ||
+            (message?.status === "DELIVERD" && <DeliverdTick />) ||
+            (message?.status === "SEEN" && <SeenTick />)}
         </svg>
       </span>
       <button

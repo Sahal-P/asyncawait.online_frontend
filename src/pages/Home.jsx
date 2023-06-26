@@ -47,7 +47,7 @@ const Home = () => {
           <ProfileSidebar setSidebar={setSidebar} sideBar={sideBar} />
           <NavBar setSidebar={setSidebar} />
           <SelectSection />
-        </div>
+  </div>
         {chatBox ? (
           <>
             <ChatBox />
