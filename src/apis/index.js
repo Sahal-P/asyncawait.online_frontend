@@ -29,6 +29,10 @@ export const LoginAPI = async (user) =>
   axios.post(`auth/login`, user, {
     withCredentials: true,
   });
+export const LogoutAPI = async (id) =>
+  axios.post(`auth/logout`, id, {
+    withCredentials: true,
+  });
 export const messageUnknown = async (id) => axios.post(`chat/unknown`, { id });
 export const getChatDetails = async (id) =>
   axios.post(`chat/get_chat_details`, { id });

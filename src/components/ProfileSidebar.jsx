@@ -1,9 +1,14 @@
 import { BiArrowBack } from "react-icons/bi";
 import { RiPencilFill } from "react-icons/ri";
 import { IoCameraSharp } from "react-icons/io5";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../pages/Home";
 
-const ProfileSidebar = ({ setSidebar, sideBar }) => {
+const ProfileSidebar = ({ setSidebar, sideBar, user }) => {
+
+  useEffect(() => {
+
+  },[user])
   return (
     <div
       className={`${
@@ -47,7 +52,7 @@ const ProfileSidebar = ({ setSidebar, sideBar }) => {
       <div className="px-7 flex flex-col gap-6 mt-9">
         <h3 className="text-line text-sm">Your name</h3>
         <div className="flex items-center">
-          <h1 className="text-xl text-white">Anthony</h1>
+          <h1 className="text-xl text-white">{user.username}</h1>
           <RiPencilFill className="text-icon ml-auto text-2xl" />
         </div>
         <p className="text-icon text-sm">

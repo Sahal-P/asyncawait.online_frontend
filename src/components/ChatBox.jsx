@@ -11,6 +11,8 @@ import moment from "moment";
 import { MESSAGE_TYPE } from "../types";
 import { GET_CHAT_DETAILS } from "../redux/sagas/types";
 import { CHAT_WS, WS } from "../apis/socket";
+import { Skeleton } from "@mui/material";
+import { TEXT_MESSAGE } from "../types/Message";
 
 const ChatBox = () => {
   const chatboxRef = useRef(null);
@@ -23,23 +25,41 @@ const ChatBox = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    let url = `${WS}${CHAT_WS}${chat_id}/`;
-    const _socket = new WebSocket(url);
+    let chat_ws_url = `${WS}${CHAT_WS}${chat_id}/`;
+    const _socket = new WebSocket(chat_ws_url);
 
     const handleSocketMessage = (e) => {
       let data = JSON.parse(e.data);
       console.log(data);
-      if (data.message_type === MESSAGE_TYPE["TEXT_MESSAGE"]) {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            id: data.id,
-            content: data.content,
-            sender: data.sender,
-            timestampe: data.timestampe,
-            status: data.status,
-          },
-        ]);
+      // if (data.message_type === MESSAGE_TYPE["TEXT_MESSAGE"]) {
+      //   setMessages((prevMessages) => [
+      //     ...prevMessages,
+      //     {
+      //       id: data.id,
+      //       content: data.content,
+      //       sender: data.sender,
+      //       timestampe: data.timestampe,
+      //       status: data.status,
+      //     },
+      //   ]);
+      // }
+      switch (data.message_type) {
+        case MESSAGE_TYPE[TEXT_MESSAGE]:
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              id: data.id,
+              content: data.content,
+              sender: data.sender,
+              timestampe: data.timestampe,
+              status: data.status,
+            },
+          ]);
+          break;
+        // Add more cases here if needed
+        default:
+          // Default case
+          break;
       }
     };
 
@@ -91,6 +111,12 @@ const ChatBox = () => {
           className="w-full h-[90%] flex flex-1 flex-col relative overflow-y-scroll px-4"
           ref={chatboxRef}
         >
+          {/* <Skeleton
+  sx={{ bgcolor: '#35444c', borderRadius: '10px' }}
+  variant="rectangular"
+  width={210}
+  height={118}
+/> */}
           {history.map((message) =>
             message.sender === user.id ? (
               <MessageSelf key={message.id} message={message} />

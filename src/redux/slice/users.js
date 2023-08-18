@@ -17,9 +17,13 @@ function createinitialState() {
 function createReducers() {
   return {
     setUsers,
+    removeState,
   };
   function setUsers(state, action) {
     state.users = action.payload;
+  }
+  function removeState(state, action) {
+    return initialState
   }
 }
 

@@ -20,12 +20,16 @@ function createReducers() {
   return {
     setChatId,
     setMessages,
+    removeState,
   };
   function setChatId(state, action) {
     state.chat_id = action.payload;
   }
   function setMessages(state, action) {
     state.messages = action.payload;
+  }
+  function removeState(state, action) {
+    return initialState
   }
 }
 
