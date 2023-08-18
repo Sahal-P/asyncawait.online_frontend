@@ -9,7 +9,8 @@ const SelectSection = () => {
   const [search, setSearch] = useState(false);
   const [filter, setFilter] = useState(false);
   const { user, contacts } = useContext(UserContext);
-  useEffect(() => {}, [contacts]);
+  useEffect(() => {
+  }, [contacts]);
   return (
     <>
       <SearchBar filter={filter} setFilter={setFilter} />

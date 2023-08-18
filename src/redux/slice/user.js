@@ -27,6 +27,7 @@ function createReducers() {
     setUser,
     setContacts,
     addContact,
+    removeState,
   };
   function setUser(state, action) {
     state.user = action.payload;
@@ -36,6 +37,9 @@ function createReducers() {
   }
   function addContact(state, action) {
     state.contacts.push(action.payload);
+  }
+  function removeState(state, action) {
+    return initialState
   }
 }
 

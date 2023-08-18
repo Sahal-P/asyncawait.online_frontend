@@ -22,12 +22,16 @@ function createReducers() {
   return {
     setUser,
     setState,
+    removeState,
   };
   function setUser(state, action) {
     state.user = action.payload;
   }
   function setState(state, action) {
     state.state = action.payload;
+  }
+  function removeState(state, action) {
+    return initialState
   }
 }
 
