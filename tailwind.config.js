@@ -9,6 +9,7 @@ export default {
       colors: {
         "primary": "#1c2c33",
         "secondary": "#111b21",
+        "chat-bg": "#0b141a",
         "icon": "#aebac1",
         "line": "#00ab88",
         "hero": "#1e2e35",

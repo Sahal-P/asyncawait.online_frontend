@@ -4,7 +4,7 @@ const MessageSender = ({ message }) => {
   return (
     <div className="text-white w-fit h-fit max-w-[60%] rounded-b-lg rounded-tr-lg px-1 mt-1 mb-2 mr-3 bg-sender relative items-center flex py-1 group">
       {/* <MenuTextMsgL menuTextL={menuTextL} /> */}
-      <p className="text-sm px-2 break-all">{message.content}</p>
+      <p className="text-sm px-2 break-all">{message?.content}</p>
       <span className="text-sender absolute top-0 -left-2">
         <svg viewBox="0 0 8 13" width="8" height="13" className="">
           <path
@@ -19,7 +19,7 @@ const MessageSender = ({ message }) => {
         </svg>
       </span>
       <p className="text-icon text-xs mt-auto mr-1 whitespace-nowrap">
-        {moment(message.timestampe).format("h:mm a")}
+        {moment(message?.timestampe).format("h:mm a")}
       </p>
       <button
         id="menuTextbtn"

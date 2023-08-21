@@ -16,6 +16,7 @@ import ProfileSidebar from "../components/ProfileSidebar";
 import ChatDetails from "../components/ChatDetails";
 import { USER_WS, WS } from "../apis/socket";
 import ConnectingSpinner from "../components/ConnectingSpinner";
+import Dexie from "dexie";
 
 export const UserContext = createContext(null);
 
@@ -31,6 +32,11 @@ const Home = () => {
   const [chatDetails, setChatDetails] = useState(false);
 
   useEffect(() => {
+    const db = new Dexie("messageDB");
+    db.version(1).stores({
+      messages: "id, chatId",
+    });
+
     dispatch({ type: GET_CONTACTS });
     dispatch({ type: GET_USERS });
 
@@ -53,30 +59,29 @@ const Home = () => {
 
   useEffect(() => {
     if (!NetworkOnline) {
-      setUserWSConnected(false)
+      setUserWSConnected(false);
     }
 
-    let user_ws_url = `${WS}${USER_WS}${user.id}/`
-    const _socket = new WebSocket(user_ws_url)
+    let user_ws_url = `${WS}${USER_WS}${user.id}/`;
+    const _socket = new WebSocket(user_ws_url);
     const handleSocketOpen = (e) => {
-      setUserWSConnected(true)
-    }
+      setUserWSConnected(true);
+    };
     const handleSocketError = (e) => {
-      setUserWSConnected(false)
-    }
+      setUserWSConnected(false);
+    };
     const handleSocketMessage = (e) => {
       const notification = JSON.parse(e.data);
-      console.log(notification,'notification');
-    }
-    _socket.addEventListener("open", handleSocketOpen)
-    _socket.addEventListener("close", handleSocketError)
-    _socket.addEventListener("message", handleSocketMessage)
+      console.log(notification, "notification");
+    };
+    _socket.addEventListener("open", handleSocketOpen);
+    _socket.addEventListener("close", handleSocketError);
+    _socket.addEventListener("message", handleSocketMessage);
 
     return () => {
       _socket.removeEventListener("message", handleSocketMessage);
     };
-    
-  },[NetworkOnline])
+  }, [NetworkOnline]);
 
   useEffect(() => {
     if (Object.keys(selected).length !== 0) {
@@ -84,16 +89,19 @@ const Home = () => {
     }
   }, [selected]);
 
-
   return (
     <UserContext.Provider
       value={{ user, contacts, chatDetails, setChatDetails }}
     >
       <ConnectingSpinner userWSConnected={userWSConnected} />
-      <section className="w-full h-screen flex bg-secondary overflow-hidden">
+      <section className="w-full h-screen flex bg-chat-bg overflow-hidden md:justify-center pt-4 pb-4">
         {/* <ImageDetails /> */}
         <div className="h-full w-[410px] bg-secondary border-r border-slate-700 relative">
-          <ProfileSidebar setSidebar={setSidebar} sideBar={sideBar} user={user} />
+          <ProfileSidebar
+            setSidebar={setSidebar}
+            sideBar={sideBar}
+            user={user}
+          />
           <NavBar setSidebar={setSidebar} />
           <SelectSection />
         </div>
