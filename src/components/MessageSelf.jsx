@@ -1,6 +1,7 @@
 import SeenTick from "./SeenTick";
 import SendTick from "./SendTick";
 import DeliverdTick from "./DeliverdTick";
+import PendingTick from "./PendingTick";
 import { useEffect } from "react";
 import moment from "moment";
 
@@ -35,8 +36,10 @@ const MessageSelf = ({ message }) => {
           fill="none"
           className=""
         >
-          {(message?.status === "SENT" && <SendTick />) ||
-            (message?.status === "DELIVERD" && <DeliverdTick />) ||
+          {
+            (message?.status === "PENDING" && <PendingTick />) ||
+            (message?.status === "SENT" && <SendTick />) ||
+            (message?.status === "DELIVERD" && <DeliverdTick /> ) ||
             (message?.status === "SEEN" && <SeenTick />)}
         </svg>
       </span>

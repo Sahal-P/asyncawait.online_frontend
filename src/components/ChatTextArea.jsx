@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MESSAGE_TYPE } from "../types";
 import MediaOption from "./MediaOption";
+import AudioRecordMode from "./AudioRecordMode";
+import AudioRecordIcon from "./AudioRecordIcon";
 
 const ChatTextArea = ({ send_message }) => {
   const [message, setMessage] = useState("");
+  const [audioRecordMode, setAudioRecordMode] = useState(false);
   const [openMediaOption, setopenMediaOption] = useState(false);
+
+  const handlesetAudioRecord = () => {
+    setAudioRecordMode(!audioRecordMode)
+  }
+
+  useEffect(()=>{
+
+  },[audioRecordMode])
 
   const handleMessage = (e) => {
     e.preventDefault();
@@ -23,7 +34,7 @@ const ChatTextArea = ({ send_message }) => {
     setMessage("");
   };
   return (
-    <div className="w-full h-[66px] bg-primary flex items-center px-5 justify-between">
+    <div className="w-full h-[66px] bg-primary flex items-center px-6 justify-between">
       <button className="text-icon">
         <svg
           viewBox="0 0 24 24"
@@ -68,24 +79,10 @@ const ChatTextArea = ({ send_message }) => {
           placeholder="Type a message"
         />
       </form>
-      <button className="text-icon">
-        <svg
-          viewBox="0 0 24 24"
-          height="24"
-          width="24"
-          preserveAspectRatio="xMidYMid meet"
-          className=""
-          version="1.1"
-          x="0px"
-          y="0px"
-          enableBackground="new 0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M11.999,14.942c2.001,0,3.531-1.53,3.531-3.531V4.35c0-2.001-1.53-3.531-3.531-3.531 S8.469,2.35,8.469,4.35v7.061C8.469,13.412,9.999,14.942,11.999,14.942z M18.237,11.412c0,3.531-2.942,6.002-6.237,6.002 s-6.237-2.471-6.237-6.002H3.761c0,4.001,3.178,7.297,7.061,7.885v3.884h2.354v-3.884c3.884-0.588,7.061-3.884,7.061-7.885 L18.237,11.412z"
-          ></path>
-        </svg>
-      </button>
+      {audioRecordMode ? <div className="relative w-10 h-10 mt-0">
+      <AudioRecordMode handlesetAudioRecord={handlesetAudioRecord}/>
+      </div> :
+      <AudioRecordIcon handlesetAudioRecord={handlesetAudioRecord}/>}
     </div>
   );
 };

@@ -9,6 +9,7 @@ export function* GetChatDetailsSaga({ id }) {
     const details = yield getChatDetails(id);
     yield put(ChatActions.setChatId(details.data.chat.id));
     yield put(ChatActions.setMessages(details.data.message));
+    
     console.log(details);
   } catch (error) {
     console.error("Error occurred during loading", error);
