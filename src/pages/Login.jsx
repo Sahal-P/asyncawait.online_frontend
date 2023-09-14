@@ -16,12 +16,18 @@ const Login = () => {
   });
   const handleChange = (props) => (event) => {
     setUser({ ...user, [props]: event.target.value });
-    console.log(user);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    let phoneNumber = user.phone_number;
+    if (!phoneNumber.startsWith("+91")) {
+      phoneNumber = phoneNumber;
+      phoneNumber = "+91" + phoneNumber;
+    }
+
+    const updatedUser = { ...user, phone_number: phoneNumber };
     dispatch({ type: SET_LOADING, payload: true });
-    dispatch({ type: LOGIN_USER, payload: user, navigate });
+    dispatch({ type: LOGIN_USER, payload: updatedUser, navigate });
   };
   return (
     <>
@@ -67,11 +73,10 @@ const Login = () => {
                     // id="standard"
                     label="Enter your phone number"
                     placeholder="000 000 0000"
-                    multiline
                     variant="standard"
                     color="success"
                     className="w-full text-white"
-                    type="number"
+                    type="tel"
                     style={{
                       color: "white",
                     }}
@@ -114,7 +119,6 @@ const Login = () => {
                     id="standard-textarea"
                     label="Enter your password"
                     placeholder="••••••••"
-                    multiline
                     variant="standard"
                     color="success"
                     className="w-full"

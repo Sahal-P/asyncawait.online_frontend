@@ -12,6 +12,7 @@ import CircularIndeterminate from "./components/CircularIndeterminate";
 import { ToastContainer, toast } from "react-toastify";
 import Verify from "./pages/Verify";
 import { openDB } from "idb";
+import Onboarding from "./pages/Onboarding";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function App() {
     // const msgindxdata = messageIndex.getAll(["i am here"]);
     const msgindxdata = messageIndex.get("sdfsdjbsdibvdsjbd");
     // data.then((data)=>console.log(data))
-    msgindxdata.then((data)=> console.log(data))
+    // msgindxdata.then((data)=> console.log(data))
     transaction.oncomplete = () => {
       db.close();
     };
@@ -78,10 +79,12 @@ function App() {
         </Route>
         <Route element={<PublicRoute />}>
           <Route path="/register" element={<Register />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<Verify />} />
         </Route>
       </Routes>
+      
     </>
   );
 }

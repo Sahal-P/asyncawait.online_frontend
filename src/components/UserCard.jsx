@@ -11,7 +11,7 @@ const UserCard = ({ user }) => {
   function readed() {
     setIsReaded(false);
     dispatch(selectedActions.setUser(user));
-    dispatch({ type: GET_CHAT_DETAILS, id: user.contact.id });
+    // dispatch({ type: GET_CHAT_DETAILS, id: user.contact.id });
   }
   return (
     <div
@@ -27,7 +27,7 @@ const UserCard = ({ user }) => {
       </div>
       <div className="h-full w-[80%] py-3 border-b-[1px] border-slate-700 border-wid mr-3 hover:border-0 flex justify-between group">
         <div>
-          <h1 className="capitalize text-white">{user?.contact.username}</h1>
+          <h1 className="capitalize text-white">{user?.contact?.username}</h1>
           <p
             className={`${isReaded ? "text-white" : "text-slate-500"} text-sm`}
           >

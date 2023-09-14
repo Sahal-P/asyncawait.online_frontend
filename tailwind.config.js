@@ -18,6 +18,7 @@ export default {
         "dark_purple": "#000235",
         "btn_primary": "#7e7ee3",
         "heading_color": "#abd9d9",
+        "trans_bg": "#1c2c33",
       }
     },
   },

@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { MESSAGE_UNKNOWN } from "../redux/sagas/types";
+import { Suspense } from "react";
 
 const UserSearchCard = ({ user }) => {
   const dispatch = useDispatch();
@@ -11,18 +12,23 @@ const UserSearchCard = ({ user }) => {
     <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-4">
       <div className="max-w-xs mx-auto mt-8 bg-secondary shadow-xl rounded-lg text-gray-900">
         <div className="rounded-t-lg h-24 overflow-hidden">
+          <Suspense fallback={<div>Loading...</div>}>
           <img
             className="object-cover object-top w-full h-full"
             src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
             alt="Mountain"
           />
+          </Suspense>
+
         </div>
         <div className="mx-auto w-24 h-24 relative -mt-12 border-4 border-white rounded-full overflow-hidden">
+        <Suspense fallback={<div>Loading...</div>}>
           <img
             className="object-cover object-center w-full h-full"
             src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
             alt="Woman looking front"
           />
+          </Suspense>
         </div>
         <div className="text-center mt-2">
           <h2 className="font-semibold text-white text-sm">{user.username}</h2>

@@ -28,7 +28,7 @@ export const registerAPI = async (user) => axios.post(`auth/register`, user);
 export const LoginAPI = async (user) =>
   axios.post(`auth/login`, user, {
     withCredentials: true,
-  });
+  })
 export const LogoutAPI = async (id) =>
   axios.post(`auth/logout`, id, {
     withCredentials: true,

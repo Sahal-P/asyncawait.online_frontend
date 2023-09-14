@@ -14,60 +14,76 @@ import { selectedActions } from "../slice/selectedUserSlice";
 export function* RegisterAPIsaga({ payload }) {
   try {
     const response = yield registerAPI(payload);
-    console.log(response);
+    if (response.status === 200) {
+
+      toast.success("Created");
+    }
     //   yield put(userActions.setUser(user.data));
   } catch (error) {
-    console.error("Error occurred during API call:", error);
+    toast.error("Somthing Went Wrong");
   }
 }
 
 export function* LoginAPIsaga({ payload, navigate }) {
   try {
     const response = yield LoginAPI(payload);
-    // if(response.code ==)
-    Cookies.set(
-      "_X_identifier",
-      `${moment()}${JSON.stringify(response.data.id)}`
-    );
-    yield put(userActions.setUser(response.data));
-    yield put(LoadingActions.setLoading(false));
-    navigate("/");
-
+    if (response.status === 200) {
+      Cookies.set(
+        "_X_identifier",
+        `${moment()}${JSON.stringify(response.data.id)}`
+      );
+      yield put(userActions.setUser(response.data));
+      yield put(LoadingActions.setLoading(false));
+      navigate("/");
+    } else {
+      // Handle other response status codes or conditions
+      yield put(LoadingActions.setLoading(false));
+      toast.error("Invalid credentials or other error");
+    }
   } catch (error) {
     yield put(LoadingActions.setLoading(false));
     if (error.code === "ERR_NETWORK") {
       toast.error(`${error.message} Please Try Again`);
+    } else if (error.code === "ERR_BAD_REQUEST") {
+      console.log(error.code);
+      toast.error("Invalid Credentials");
     } else {
-      toast.error("Somthing went wrong please try again");
+      toast.error("Somthing Went Wrong");
     }
   }
 }
 
-export function* LogOutAPIsaga({ payload, navigate}) {
+export function* LogOutAPIsaga({ payload, navigate }) {
   try {
-    const response = yield LogoutAPI(payload)
+    const response = yield LogoutAPI(payload);
     console.log(response);
-    if (response.status === 200 ) {
-      console.log('yehhhhhhhhhh');
-      Cookies.remove("_X_identifier")
-    yield put(userActions.removeState());
-    yield put(ChatActions.removeState());
-    yield put(usersActions.removeState());
-    yield put(selectedActions.removeState());
-    yield put(LoadingActions.setLoading(false));
-    console.log('log out');
+    if (response.status === 200) {
+      Cookies.remove("_X_identifier");
+      yield put(userActions.removeState());
+      yield put(ChatActions.removeState());
+      yield put(usersActions.removeState());
+      yield put(selectedActions.removeState());
+      yield put(LoadingActions.setLoading(false));
 
-    navigate("/login");
+      navigate("/login");
     }
-    
-  } catch {
+  } catch (error) {
     yield put(LoadingActions.setLoading(false));
-    if (error.code === "ERR_NETWORK") {
+    if (
+      error.code === "ERR_NETWORK" ||
+      error.code === "ERR_CONNECTION_REFUSED"
+    ) {
       toast.error(`${error.message} Please Try Again`);
     } else {
       toast.error("Somthing went wrong please try again");
-    }
+      yield put(userActions.removeState());
+      yield put(ChatActions.removeState());
+      yield put(usersActions.removeState());
+      yield put(selectedActions.removeState());
+      yield put(LoadingActions.setLoading(false));
 
+      navigate("/login");
+    }
   }
 }
 

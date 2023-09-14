@@ -49,6 +49,7 @@ export function* getUsersSaga() {
 
 export function* messageUnknownSaga({ id }) {
   try {
+    console.log(id,'sagaaaaa');
     const contact = yield messageUnknown(id);
     console.log(contact);
     yield put(userActions.addContact(contact.data));
@@ -59,7 +60,7 @@ export function* messageUnknownSaga({ id }) {
         phone: contact.data?.contact.phone,
       })
     );
-    yield put({ type: GET_CHAT_DETAILS, id: contact.data.contact.id });
+    // yield put({ type: GET_CHAT_DETAILS, id: contact.data.contact.id });
   } catch (err) {
     console.log(err);
   }
