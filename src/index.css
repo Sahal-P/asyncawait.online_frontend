@@ -26,3 +26,14 @@
   transition-delay: '9999s';
   transition-property: 'background-color, color';
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove default appearance */
+  margin: 0; /* Remove default margin */
+}
+
+/* Style the input to prevent resizing due to removed spinner buttons */
+input[type="number"] {
+  appearance: textfield; /* Set the appearance to textfield to prevent resizing */
+}

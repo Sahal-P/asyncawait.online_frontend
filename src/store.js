@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "../src/redux/index";
 import { rootSaga } from "./redux/sagas";
+import webSocketRootSaga from "./redux/sagas/websocketSaga";
 
 const rootPersistConfig = {
   key: "root",
@@ -19,6 +20,7 @@ const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
 });
 sagaMiddleware.run(rootSaga);
+// sagaMiddleware.run(webSocketRootSaga);
 export const persistor = persistStore(store);
 
 export default store;

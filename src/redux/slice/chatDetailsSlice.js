@@ -34,27 +34,41 @@ function createReducers() {
     state.messages.push(action.payload); // Add the new message to the array
   }
   function editMessageStatus(state, action){
+
     const { id, status } = action.payload;
-    const messageIndex = state.messages.findIndex((message) => message.id === id);
-    console.log(messageIndex,'indexx');
 
-    if (messageIndex !== -1) {
-      // Create a new array with the updated message
-      const updatedMessages = state.messages.map((message, index) => {
-        if (index === messageIndex) {
-          return { ...message, status };
-        }
-        return message;
-      });
+  // Get the message from the state
+  const message = state.messages.find((message) => message.id === id);
 
-      state.messages = updatedMessages;
-    }
-    // state.messages.map( obj => {
-    //   if (obj.id === action.payload.id){
-    //     return {...obj, status: action.payload.status}
-    //   }
-    // })
+  // If the message exists, update its status
+  if (message) {
+    message.status = status;
   }
+
+  // Return the new state
+  return state;
+}
+  //   const { id, status } = action.payload;
+  //   const messageIndex = state.messages.findIndex((message) => message.id === id);
+  //   console.log(messageIndex,'indexx');
+
+  //   if (messageIndex !== -1) {
+  //     // Create a new array with the updated message
+  //     const updatedMessages = state.messages.map((message, index) => {
+  //       if (index === messageIndex) {
+  //         return { ...message, status };
+  //       }
+  //       return message;
+  //     });
+
+  //     state.messages = updatedMessages;
+  //   }
+  //   // state.messages.map( obj => {
+  //   //   if (obj.id === action.payload.id){
+  //   //     return {...obj, status: action.payload.status}
+  //   //   }
+  //   // })
+  // }
   function removeState(state, action) {
     return initialState
   }

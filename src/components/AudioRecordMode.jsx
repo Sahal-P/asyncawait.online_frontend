@@ -2,9 +2,9 @@ import "./AudioRecordMode.css"
 
 const AudioRecordMode = ({handlesetAudioRecord}) => {
   return (
-    <div class="box">
-      <div class="circle_ripple"></div>
-       <div class="circle_ripple-2 items-center flex justify-center">
+    <div className="box">
+      <div className="circle_ripple"></div>
+       <div className="circle_ripple-2 items-center flex justify-center">
        <button className="text-white" onClick={handlesetAudioRecord}>
         <svg
           viewBox="0 0 24 24"

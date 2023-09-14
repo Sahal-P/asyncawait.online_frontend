@@ -2,10 +2,15 @@ import { useContext } from "react";
 import OptionChatBox from "./OptionChatBox";
 import ThreeDotOptionIcon from "./ThreeDotOptionIcon";
 import { UserContext } from "../pages/Home";
+import Slide from "@mui/material/Slide";
+import { Skeleton } from "@mui/material";
 
-const ChatProfileHeader = ({ user }) => {
+
+const ChatProfileHeader = ({ user, chatWSConnected }) => {
   const { setChatDetails, chatDetails } = useContext(UserContext);
+  
   const option = false;
+
   return (
     <div className="z-40 w-full h-[60px] bg-primary flex items-center pl-3 pr-6 relative">
       {/* <OptionChatBox/> */}
@@ -17,13 +22,21 @@ const ChatProfileHeader = ({ user }) => {
           src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_boy_person_avatar_people_white_tone_icon_159357.png"
           alt=""
         />
-      </div>
+      </div> 
+       {/* <div>
+        <Skeleton sx={{ bgcolor: "#355360",marginRight:"auto", marginLeft: "10px" }} variant="circular" width={40} height={40} />
+      </div> */}
       <div className="ml-3">
         <h1 className="text-lg text-white font-medium">
           {user?.contact?.username}
         </h1>
-        <p className="text-xs text-slate-400">last seen today at 2:30pm</p>
+      <Slide direction="down" in={chatWSConnected} mountOnEnter unmountOnExit>
+        <div className={chatDetails ? 'block' : 'hidden'}>
+        <p className={` text-xs text-slate-400`}>last seen today at 2:30pm</p>
+        </div>
+      </Slide>
       </div>
+      {/* <Skeleton sx={{ bgcolor: "#355360", fontSize: "1rem", margin: "10px", width: "200px"}} variant="text" /> */}
       <div className="ml-auto h-full flex gap-4 items-center">
         <button className="text-icon" onClick={() => setSearhMsg(true)}>
           <svg

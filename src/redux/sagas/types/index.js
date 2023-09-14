@@ -9,3 +9,4 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const CREATE_USER = "CREATE_USER";
 export const MESSAGE_UNKNOWN = "MESSAGE_UNKNOWN";
 export const SET_LOADING = "SET_LOADING";
+export const SET_CHAT_DETAILS = "SET_CHAT_DETAILS"

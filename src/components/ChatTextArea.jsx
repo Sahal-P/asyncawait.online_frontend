@@ -3,6 +3,7 @@ import { MESSAGE_TYPE } from "../types";
 import MediaOption from "./MediaOption";
 import AudioRecordMode from "./AudioRecordMode";
 import AudioRecordIcon from "./AudioRecordIcon";
+import { Skeleton } from "@mui/material";
 
 const ChatTextArea = ({ send_message }) => {
   const [message, setMessage] = useState("");
@@ -79,6 +80,10 @@ const ChatTextArea = ({ send_message }) => {
           placeholder="Type a message"
         />
       </form>
+      {/* <Skeleton sx={{ bgcolor: "#32444c", width:"30px" }} variant="rounded" height={30} />
+      <Skeleton sx={{ bgcolor: "#32444c", width:"30px" }} variant="rounded" height={30} />
+      <Skeleton sx={{ bgcolor: "#32444c", width:"85%" }} variant="rounded" height={30} />
+      <Skeleton sx={{ bgcolor: "#32444c", width:"30px" }} variant="rounded" height={30} /> */}
       {audioRecordMode ? <div className="relative w-10 h-10 mt-0">
       <AudioRecordMode handlesetAudioRecord={handlesetAudioRecord}/>
       </div> :

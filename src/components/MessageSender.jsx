@@ -1,6 +1,7 @@
 import moment from "moment";
 
 const MessageSender = ({ message }) => {
+  console.log(message);
   return (
     <div className="text-white w-fit h-fit max-w-[60%] rounded-b-lg rounded-tr-lg px-1 mt-1 mb-2 mr-3 bg-sender relative items-center flex py-1 group">
       {/* <MenuTextMsgL menuTextL={menuTextL} /> */}
@@ -19,7 +20,7 @@ const MessageSender = ({ message }) => {
         </svg>
       </span>
       <p className="text-icon text-xs mt-auto mr-1 whitespace-nowrap">
-        {moment(message?.timestampe).format("h:mm a")}
+        {moment(message?.timestampe).format("hh:mm a")}
       </p>
       <button
         id="menuTextbtn"
