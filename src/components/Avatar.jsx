@@ -4,22 +4,25 @@ import AvatarContextMenu from './AvatarContextMenu'
 import PhotoPicker from './PhotoPicker'
 import CircularProgress from '@mui/material/CircularProgress';
 import PhotoLibrary from './PhotoLibrary'
+import CapturePhoto from './CapturePhoto';
 
 
-const Avatar = ({ type, image, setImage}) => {
+const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage}) => {
     const [isContextMenuOpen, setisContextMenuOpen] = useState(false)
     const [showPhotoLibrary, setshowPhotoLibrary] = useState(false)
+    const [showCapturePhoto, setShowCapturePhoto] = useState(false)
     const [grabPhoto, setGrabPhoto] = useState(false)
     const [contextMenuCordinate, setisContextMenuCordinate] = useState({ x: 0, y: 0})
     const [isLoading, setIsLoading] = useState(false)
-    const [avatrImage, setAvatarImage] = useState(null)
     const showContext = (e) => {
         e.preventDefault();
         setisContextMenuOpen(true)
         setisContextMenuCordinate({x: e.pageX, y: e.pageY})
     } 
     const contextMenuOptions = [
-        { name: "Take Photo", callback: () => {}},
+        { name: "Take Photo", callback: () => {
+            setShowCapturePhoto(true)
+        }},
         { name: "Choose from Library", callback: () => {
             setshowPhotoLibrary(true)
         }},
@@ -31,6 +34,8 @@ const Avatar = ({ type, image, setImage}) => {
     const photoPickerChange = async (e) => {
         setIsLoading(true)
         const file = e.target.files[0];
+        setUploadedImage(file)
+        setIsUploadedImage(true)
         const reader = new FileReader()
         const data = document.createElement("img")
         reader.onload = function (event) {
@@ -65,13 +70,13 @@ const Avatar = ({ type, image, setImage}) => {
       {
           type === 'sm' && 
         <div className="relative h-10 w-10">
-            <img src={avatrImage} alt="avatar" className="rounded-full"/>
+            <img src={image} alt="avatar" className="rounded-full"/>
         </div>
       }
       {
           type === 'lg' && 
         <div className="relative h-14 w-14">
-            <img src={avatrImage} alt="avatar" className="rounded-full"/>
+            <img src={image} alt="avatar" className="rounded-full"/>
         </div>
       }
       {
@@ -83,7 +88,7 @@ const Avatar = ({ type, image, setImage}) => {
                 <TbCameraPlus className="text-3xl text-white absolute bottom-0 right-0" id='context-opener' 
                 onClick={e=>showContext(e)}
                 />
-            { isLoading ===true ?  <CircularProgress color="success" /> : <img src={image} alt="avatar" className="rounded-full" id="context-opener"/>}
+            { isLoading ?  <CircularProgress color="success" /> : <img src={image} alt="avatar" className="rounded-full" id="context-opener"/>}
           </div>
         
       }
@@ -96,8 +101,9 @@ const Avatar = ({ type, image, setImage}) => {
         contextMenu={isContextMenuOpen}
         setContextMenu={setisContextMenuOpen} />
       )}
-      {grabPhoto && <PhotoPicker onChange={photoPickerChange}/> }
+      {grabPhoto && <PhotoPicker onChange={photoPickerChange} /> }
       {showPhotoLibrary && <PhotoLibrary setImage={setImage} hidePhotoLibrary={setshowPhotoLibrary}/> }
+      {showCapturePhoto && <CapturePhoto setImage={setImage} hide={setShowCapturePhoto}/> }
     </>
   )
 }

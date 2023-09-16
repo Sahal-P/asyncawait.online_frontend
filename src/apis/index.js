@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useSelector } from "react-redux";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.withCredentials = true;
@@ -25,6 +24,13 @@ export const getUserAPI = async () => axios.get("");
 export const getFriendsAPI = async () => axios.get(`friends`);
 export const getContactsAPI = async () => axios.get(`chat/get_contacts`);
 export const registerAPI = async (user) => axios.post(`auth/register`, user);
+
+export const createProfileAPI = async (profile) => axios.post(`auth/create-profile`, profile, {
+  headers: {
+      "Content-Type": "multipart/form-data",
+  },
+});
+
 export const LoginAPI = async (user) =>
   axios.post(`auth/login`, user, {
     withCredentials: true,

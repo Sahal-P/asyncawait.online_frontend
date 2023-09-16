@@ -11,12 +11,13 @@ import { ChatActions } from "../slice/chatDetailsSlice";
 import { usersActions } from "../slice/users";
 import { selectedActions } from "../slice/selectedUserSlice";
 
-export function* RegisterAPIsaga({ payload }) {
+export function* RegisterAPIsaga({ payload, navigate }) {
   try {
     const response = yield registerAPI(payload);
-    if (response.status === 200) {
+    if (response.status === 201) {
 
-      toast.success("Created");
+      toast.success("Created"); 
+      navigate(`/onboarding/${response.data.id}`)
     }
     //   yield put(userActions.setUser(user.data));
   } catch (error) {
