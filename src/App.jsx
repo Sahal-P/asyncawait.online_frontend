@@ -79,7 +79,7 @@ function App() {
         </Route>
         <Route element={<PublicRoute />}>
           <Route path="/register" element={<Register />} />
-          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/onboarding/:reg_id" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<Verify />} />
         </Route>

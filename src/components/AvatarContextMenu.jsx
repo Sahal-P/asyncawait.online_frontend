@@ -29,7 +29,7 @@ const AvatarContextMenu = ({
   return (
     <div className="flex gap-3 relative z-[100]">
     <div
-      className={`fixed bg-primary shadow-sm rounded-md shadow-slate-700 py-1`}
+      className={`fixed bg-secondary shadow-sm rounded-md shadow-slate-700 py-1`}
       style={{
         top: cordinates.y,
         left: cordinates.x,
@@ -38,7 +38,7 @@ const AvatarContextMenu = ({
     >
       <ul className="text-white">
         {options.map(({ name, callback }) => (
-          <li key={name} onClick={(e) => handleClick(e, callback)} className="py-2 hover:bg-secondary px-4 cursor-pointer">
+          <li key={name} onClick={(e) => handleClick(e, callback)} className="py-2 hover:bg-primary px-4 cursor-pointer">
            {name}
           </li>
         ))}

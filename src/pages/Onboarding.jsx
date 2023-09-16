@@ -1,31 +1,54 @@
-import Avatar  from "../components/Avatar";
+import Avatar from "../components/Avatar";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import defaultAvatar from '../../public/default_avatar_1.png'
+import { Link, useParams } from "react-router-dom";
+import defaultAvatar from "/src/assets/image/default_avatar_1.png";
+import { createProfileAPI } from "../apis";
+import { useMutation } from 'react-query';
+
 
 const Onboarding = () => {
-    const dispatch = useDispatch();
-  const [image, setImage] = useState(defaultAvatar)
-    const [user, setUser] = useState({
+  const dispatch = useDispatch();
+  const {reg_id} = useParams()
+  const [image, setImage] = useState(defaultAvatar);
+  const [isUploadedImage, setIsUploadedImage] = useState(false);
+  const [UploadedImage, setUploadedImage] = useState(null);
+  const [profile, setProfile] = useState({
     username: "",
-    email: "",
-    phone_number: "",
-    password: "",
-    confirm_password: "",
+    about: "",
   });
+
+  const mutation = useMutation({
+
+    mutationFn: (formData) => createProfileAPI(formData),
+    onSuccess: async () => {
+      console.log("I'm first!")
+    },
+    onSettled: async () => {
+      console.log("I'm second!")
+    },
+    
+  })
+  
   const handleChange = (props) => (event) => {
     console.log(props, event.target.value);
-    setUser({ ...user, [props]: event.target.value });
+    setProfile({ ...profile, [props]: event.target.value });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-  //   const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+    const formData = new FormData();
+    formData.append("username", profile.username);
+    formData.append("about", profile.about);
+    if (isUploadedImage) {
+      formData.append("profile_picture", UploadedImage);
+    } else {
+      formData.append("profile_picture", image);
+    }
+    formData.append("user", reg_id)
+    formData.append("user", reg_id)
 
-  //  if (!passwordPattern.test(user.password)) {
-  //    console.log("Password requirements: 8-20 characters, 1 number, 1 letter, 1 symbol.");
-  //    return;
-  //  }
+    mutation.mutate(formData)
+    
   };
   return (
     <section className="bg-secondary">
@@ -48,7 +71,7 @@ const Onboarding = () => {
             </h1>
             <form className="space-y-4 md:space-y-2" onSubmit={handleSubmit}>
               <div className="text-center">
-                <Avatar type='xl' image={image} setImage={setImage} />
+                <Avatar type="xl" image={image} setImage={setImage} setUploadedImage={setUploadedImage} setIsUploadedImage={setIsUploadedImage} />
                 <label
                   htmlFor="email"
                   className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -62,86 +85,51 @@ const Onboarding = () => {
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your Phone Number
+                  Your username
                 </label>
                 <input
-                  onChange={handleChange("phone_number")}
-                  value={user.phone_number}
-                  type="tel "
-                  name="phone_number"
-                  id="phone_number"
+                  onChange={handleChange("username")}
+                  value={profile.username}
+                  type="text"
+                  name="username"
+                  id="username"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="+91 000 000 0000"
+                  placeholder="example_123"
                   required=""
                 />
               </div>
-              <span className="text-xs text-red-600">Invalid Phone Number</span>
+              <span className="text-xs text-red-600">Invalid Username</span>
               <div>
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your Name
+                  About
                 </label>
                 <input
-                  onChange={handleChange("username")}
-                  value={user.username}
+                  onChange={handleChange("about")}
+                  value={profile.about}
                   type="text"
-                  name="username"
-                  id="first_name"
+                  name="about"
+                  id="about"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="sahal"
-                  required=""
+                  placeholder="about"
                 />
               </div>
-              <span className="text-xs text-red-600">Invalid Name</span>
-             
-              <span className="text-xs text-red-600">Password not Same</span>
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="terms"
-                    aria-describedby="terms"
-                    type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    required=""
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label
-                    htmlFor="terms"
-                    className="font-light text-gray-500 dark:text-gray-300"
-                  >
-                    I accept the{" "}
-                    <a className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                      Terms and Conditions
-                    </a>
-                  </label>
-                </div>
-              </div>
+              <span className="text-xs text-red-600">Invalid About</span>
+
               <button
                 type="submit"
                 className="w-full bg-secondary text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Create an account
+                Create Profile
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Already have an account?{" "}
-                <Link
-                  to={"/login"}
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Login here
-                </Link>
-              </p>
             </form>
           </div>
         </div>
       </div>
-      
     </section>
+  );
+};
 
-  )
-}
-
-export default Onboarding
+export default Onboarding;
