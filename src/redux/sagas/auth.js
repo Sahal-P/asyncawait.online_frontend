@@ -2,7 +2,6 @@ import { LoginAPI, LogoutAPI, registerAPI } from "../../apis";
 import { userActions } from "../slice/user";
 import { LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "./types";
 import { put, takeEvery } from "redux-saga/effects";
-import { useNavigate } from "react-router-dom";
 import { LoadingActions } from "../slice/loadingSlice";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
@@ -11,11 +10,15 @@ import { ChatActions } from "../slice/chatDetailsSlice";
 import { usersActions } from "../slice/users";
 import { selectedActions } from "../slice/selectedUserSlice";
 
+
 export function* RegisterAPIsaga({ payload, navigate }) {
   try {
     const response = yield registerAPI(payload);
     if (response.status === 201) {
-
+      Cookies.set(
+        import.meta.env.VITE_USER_PASS,
+        btoa(payload.password)
+      );
       toast.success("Created"); 
       navigate(`/onboarding/${response.data.id}`)
     }
@@ -27,12 +30,19 @@ export function* RegisterAPIsaga({ payload, navigate }) {
 
 export function* LoginAPIsaga({ payload, navigate }) {
   try {
+    console.log('yahh', );
     const response = yield LoginAPI(payload);
     if (response.status === 200) {
       Cookies.set(
-        "_X_identifier",
-        `${moment()}${JSON.stringify(response.data.id)}`
+        import.meta.env.VITE_ACCESS_TOKEN,
+        response.data.access_token
       );
+      Cookies.set(
+        import.meta.env.VITE_REFRESH_TOKEN,
+        response.data.refresh_token
+      );
+      delete response.data.access_token;
+      delete response.data.refresh_token;
       yield put(userActions.setUser(response.data));
       yield put(LoadingActions.setLoading(false));
       navigate("/");
@@ -58,8 +68,10 @@ export function* LogOutAPIsaga({ payload, navigate }) {
   try {
     const response = yield LogoutAPI(payload);
     console.log(response);
-    if (response.status === 200) {
+    if (response.status === 204) {
       Cookies.remove("_X_identifier");
+      Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN);
+      Cookies.remove(import.meta.env.VITE_REFRESH_TOKEN);
       yield put(userActions.removeState());
       yield put(ChatActions.removeState());
       yield put(usersActions.removeState());
@@ -76,7 +88,10 @@ export function* LogOutAPIsaga({ payload, navigate }) {
     ) {
       toast.error(`${error.message} Please Try Again`);
     } else {
-      toast.error("Somthing went wrong please try again");
+      toast.error("Somthing went wrong while Logout");
+      Cookies.remove("_X_identifier");
+      Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN);
+      Cookies.remove(import.meta.env.VITE_REFRESH_TOKEN);
       yield put(userActions.removeState());
       yield put(ChatActions.removeState());
       yield put(usersActions.removeState());

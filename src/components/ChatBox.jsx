@@ -35,13 +35,13 @@ const ChatBox = ({ NetworkOnline }) => {
   const history = useSelector((state) => state.chat.messages);
   const user = useSelector((state) => state.user.user);
   const socket = useRef(null);
-  const [messages, setMessages] = useState([]);
-  // const [isLoading, setisLoading] = useState(false);
+  // const [messages, setMessages] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
 
   // const {data, isLoading, error} = useGetChatDetails(selected?.contact?.id)
-  const { data, error, isSuccess, isLoading } = useFetchChatDetails(
-    selected?.contact?.id
-  );
+  // const { data, error, isSuccess, isLoading } = useFetchChatDetails(
+  //   selected?.contact?.id
+  // );
 
   console.log(chat_id);
   useEffect(() => {
@@ -122,34 +122,36 @@ const ChatBox = ({ NetworkOnline }) => {
     return () => {
       if (_socket) {
         _socket.removeEventListener("message", handleSocketMessage);
+        _socket.removeEventListener("open", handleSocketOpen);
+      _socket.removeEventListener("error", handleSocketError);
         _socket.close(); // Close the socket when the component unmounts
       }
     };
   }, [chat_id, NetworkOnline]);
 
-  // useEffect(()  => {
-  //   dispatch({ type: GET_CHAT_DETAILS, id: selected?.contact?.id});
-  //    chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
-  // }, []);
+  useEffect(()  => {
+    dispatch({ type: GET_CHAT_DETAILS, id: selected?.contact?.id});
+     chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+  }, [chat_id]);
 
   useEffect(() => {
     chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
-  }, [history, messages, isLoading]);
+  }, [history, isLoading]);
 
   const notify_deliverd_and_seen = (notify) => {
     socket.current.send(JSON.stringify(notify));
   };
 
-  const handleReadedMessage = (id) => {
-    const newMessage = messages.map((obj) => {
-      if (obj.id === id) {
-        return { ...obj, status: "SEEN" };
-      }
-      return obj;
-    });
-    setMessages(newMessage);
-    console.log("changed seen ", messages);
-  };
+  // const handleReadedMessage = (id) => {
+  //   const newMessage = messages.map((obj) => {
+  //     if (obj.id === id) {
+  //       return { ...obj, status: "SEEN" };
+  //     }
+  //     return obj;
+  //   });
+  //   setMessages(newMessage);
+  //   console.log("changed seen ", messages);
+  // };
 
   const send_message = (message) => {
     message.id = uuidv4();

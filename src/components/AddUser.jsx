@@ -13,7 +13,7 @@ const AddUser = () => {
 
   const {isLoading: usersLoading, isError: usersError} = useQuery('users', getUsersAPI, {
     onSuccess: (usersData) => {
-      dispatch(usersActions.setUsers(usersData.data));
+      // dispatch(usersActions.setUsers(usersData.data));
       setUsers(usersData.data)
     },
   });

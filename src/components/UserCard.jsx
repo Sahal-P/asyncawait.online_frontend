@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { selectedActions } from "../redux/slice/selectedUserSlice";
 import { GET_CHAT_DETAILS } from "../redux/sagas/types";
+import useFetchChatDetails from "../hooks/useFetchChatDetails";
 
 const UserCard = ({ user }) => {
   const [isReaded, setIsReaded] = useState(true);
@@ -12,6 +13,7 @@ const UserCard = ({ user }) => {
     setIsReaded(false);
     dispatch(selectedActions.setUser(user));
     // dispatch({ type: GET_CHAT_DETAILS, id: user.contact.id });
+    // useFetchChatDetails(user.contact.id)
   }
   return (
     <div
@@ -20,14 +22,14 @@ const UserCard = ({ user }) => {
     >
       <div className="w-[50px] rounded-full overflow-hidden h-[50px] flex items-center justify-center">
         <img
-          src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_boy_person_avatar_people_white_tone_icon_159357.png"
+          src={`http://localhost:8000/media/${user?.profile?.default_avatar}`}
           alt=""
           className="w-full h-full"
         />
       </div>
       <div className="h-full w-[80%] py-3 border-b-[1px] border-slate-700 border-wid mr-3 hover:border-0 flex justify-between group">
         <div>
-          <h1 className="capitalize text-white">{user?.contact?.username}</h1>
+          <h1 className="capitalize text-white">{user?.profile?.username}</h1>
           <p
             className={`${isReaded ? "text-white" : "text-slate-500"} text-sm`}
           >

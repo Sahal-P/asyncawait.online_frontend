@@ -1,13 +1,15 @@
 FROM node:18-alpine
 
-WORKDIR /react-vite-app
+WORKDIR /frontend
 
-EXPOSE 3000
 
-COPY package.json package-lock.json ./
+# Copy the package.json and package-lock.json files to the container
+COPY package*.json ./
 
-RUN npm install --silent
+# Install dependencies, including Vite
+RUN npm install
 
+# Copy the rest of your application files to the container
 COPY . .
 
-CMD [ "npm", "run", "dev", "--", "--port", "3000" ]
+RUN npm run build

@@ -20,6 +20,7 @@ import Dexie from "dexie";
 import InitialSideBarSkeleton from "../components/skeleton/InitialSideBarSkeleton";
 import { useQuery } from "react-query";
 import { getContactsAPI, getUsersAPI } from "../apis";
+import { userActions } from "../redux/slice/user";
 
 export const UserContext = createContext(null);
 
@@ -30,8 +31,7 @@ const Home = () => {
   const [userWSConnected, setUserWSConnected] = useState(false);
   const selected = useSelector((state) => state.selected.user);
   const user = useSelector((state) => state.user.user);
-  // const contacts = useSelector((state) => state.user.contacts);
-  const [contacts, setContacts] = useState([])
+  const contacts = useSelector((state) => state.user.contacts);
   const [sideBar, setSidebar] = useState(false);
   const [chatDetails, setChatDetails] = useState(false);
 
@@ -44,8 +44,8 @@ const Home = () => {
 
     const { data: contactsData,isLoading: contactsLoading, isError: contactsError} = useQuery('contacts', getContactsAPI, {
       onSuccess: (contactsData) => {
-        setContacts(contactsData.data)
-        // dispatch(userActions.setContacts(contactsData));
+        // setContacts(contactsData.data)
+        dispatch(userActions.setContacts(contactsData.data));
       },
     });
   

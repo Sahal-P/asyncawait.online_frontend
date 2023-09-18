@@ -10,6 +10,7 @@ const SelectSection = ({contacts}) => {
   const [filter, setFilter] = useState(false);
   const { user } = useContext(UserContext);
   useEffect(() => {
+    console.log(contacts);
   }, [contacts]);
   return (
     <>
