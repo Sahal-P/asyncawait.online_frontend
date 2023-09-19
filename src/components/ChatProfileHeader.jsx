@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import OptionChatBox from "./OptionChatBox";
 import ThreeDotOptionIcon from "./ThreeDotOptionIcon";
 import { UserContext } from "../pages/Home";
@@ -11,6 +11,10 @@ const ChatProfileHeader = ({ user, chatWSConnected }) => {
   
   const option = false;
 
+  useEffect(()=>{
+
+  },[user, chatWSConnected])
+  
   return (
     <div className="z-40 w-full h-[60px] bg-primary flex items-center pl-3 pr-6 relative">
       {/* <OptionChatBox/> */}
@@ -19,7 +23,7 @@ const ChatProfileHeader = ({ user, chatWSConnected }) => {
         onClick={() => setChatDetails(!chatDetails)}
       >
         <img
-          src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_boy_person_avatar_people_white_tone_icon_159357.png"
+          src={`http://localhost:8000${user?.contact?.profile?.profile_picture ? user?.contact?.profile?.profile_picture : "/media/"+user?.contact?.profile?.default_avatar }`}
           alt=""
         />
       </div> 
@@ -28,7 +32,7 @@ const ChatProfileHeader = ({ user, chatWSConnected }) => {
       </div> */}
       <div className="ml-3">
         <h1 className="text-lg text-white font-medium">
-          {user?.contact?.username}
+          {user?.contact?.profile?.username ? user?.contact?.profile?.username : user?.contact?.phone_number}
         </h1>
       <Slide direction="down" in={chatWSConnected} mountOnEnter unmountOnExit>
         <div className={chatDetails ? 'block' : 'hidden'}>

@@ -1,15 +1,17 @@
 import Avatar from "../components/Avatar";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import defaultAvatar from "/src/assets/image/default_avatar_1.png";
 import { createProfileAPI } from "../apis";
-import { useMutation } from 'react-query';
-
+import { useMutation } from "react-query";
+import { LOGIN_USER, SET_LOADING } from "../redux/sagas/types";
+import Cookies from "js-cookie";
 
 const Onboarding = () => {
   const dispatch = useDispatch();
-  const {reg_id} = useParams()
+  const navigate = useNavigate();
+  const { reg_id } = useParams();
   const [image, setImage] = useState(defaultAvatar);
   const [isUploadedImage, setIsUploadedImage] = useState(false);
   const [UploadedImage, setUploadedImage] = useState(null);
@@ -19,17 +21,25 @@ const Onboarding = () => {
   });
 
   const mutation = useMutation({
-
     mutationFn: (formData) => createProfileAPI(formData),
-    onSuccess: async () => {
-      console.log("I'm first!")
+    onSuccess: async (res) => {
+      console.log("I'm first!", res);
+      if (res.status === 201) {
+        const password = Cookies.get(import.meta.env.VITE_USER_PASS);
+        const current_user = {
+          phone_number: res.data.phone_number,
+          password: atob(password),
+        };
+        console.log(current_user,'user');
+        dispatch({ type: SET_LOADING, payload: true });
+        dispatch({ type: LOGIN_USER, payload: current_user, navigate });
+      }
     },
     onSettled: async () => {
-      console.log("I'm second!")
+      console.log("I'm second!");
     },
-    
-  })
-  
+  });
+
   const handleChange = (props) => (event) => {
     console.log(props, event.target.value);
     setProfile({ ...profile, [props]: event.target.value });
@@ -42,13 +52,16 @@ const Onboarding = () => {
     if (isUploadedImage) {
       formData.append("profile_picture", UploadedImage);
     } else {
-      formData.append("profile_picture", image);
+      if (image === defaultAvatar) {
+        formData.append("default_avatar", "default");
+      } else {
+        const match = image.match(/\/(\d+)\.png$/);
+        formData.append("default_avatar", match[1]);
+      }
     }
-    formData.append("user", reg_id)
-    formData.append("user", reg_id)
+    formData.append("user", reg_id);
 
-    mutation.mutate(formData)
-    
+    mutation.mutate(formData);
   };
   return (
     <section className="bg-secondary">
@@ -71,7 +84,13 @@ const Onboarding = () => {
             </h1>
             <form className="space-y-4 md:space-y-2" onSubmit={handleSubmit}>
               <div className="text-center">
-                <Avatar type="xl" image={image} setImage={setImage} setUploadedImage={setUploadedImage} setIsUploadedImage={setIsUploadedImage} />
+                <Avatar
+                  type="xl"
+                  image={image}
+                  setImage={setImage}
+                  setUploadedImage={setUploadedImage}
+                  setIsUploadedImage={setIsUploadedImage}
+                />
                 <label
                   htmlFor="email"
                   className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -120,9 +139,10 @@ const Onboarding = () => {
 
               <button
                 type="submit"
+                disabled={mutation.isLoading}
                 className="w-full bg-secondary text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Create Profile
+                {mutation.isLoading ? "Creating..." : "Create Profile"}
               </button>
             </form>
           </div>

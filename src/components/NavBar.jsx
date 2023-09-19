@@ -5,7 +5,7 @@ import StatusNavigateButton from "./StatusNavigateButton";
 import NewChatNavigateButton from "./NewChatNavigateButton";
 import ThreeDotOptionIcon from "./ThreeDotOptionIcon";
 
-const NavBar = ({ setSidebar }) => {
+const NavBar = ({ setSidebar}) => {
   const [option, setOption] = useState(false);
   return (
     <div className="w-full h-[60px] bg-primary flex items-center pl-4 pr-3 justify-between">

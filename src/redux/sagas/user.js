@@ -51,14 +51,10 @@ export function* messageUnknownSaga({ id }) {
   try {
     console.log(id,'sagaaaaa');
     const contact = yield messageUnknown(id);
-    console.log(contact);
+    console.log(contact,'----------');
     yield put(userActions.addContact(contact.data));
     yield put(
-      selectedActions.setUser({
-        id: contact.data?.id,
-        username: contact.data?.contact.username,
-        phone: contact.data?.contact.phone,
-      })
+      selectedActions.setUser(contact.data)
     );
     // yield put({ type: GET_CHAT_DETAILS, id: contact.data.contact.id });
   } catch (err) {

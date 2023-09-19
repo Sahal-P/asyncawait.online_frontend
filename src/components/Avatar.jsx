@@ -102,7 +102,7 @@ const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage}) 
         setContextMenu={setisContextMenuOpen} />
       )}
       {grabPhoto && <PhotoPicker onChange={photoPickerChange} /> }
-      {showPhotoLibrary && <PhotoLibrary setImage={setImage} hidePhotoLibrary={setshowPhotoLibrary}/> }
+      {showPhotoLibrary && <PhotoLibrary setImage={setImage} hidePhotoLibrary={setshowPhotoLibrary} setIsUploadedImage={setIsUploadedImage}/> }
       {showCapturePhoto && <CapturePhoto setImage={setImage} hide={setShowCapturePhoto}/> }
     </>
   )

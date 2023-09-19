@@ -9,7 +9,7 @@ import seven from "/src/assets/image/avatar/7.png";
 import eight from "/src/assets/image/avatar/8.png";
 import nine from "/src/assets/image/avatar/9.png";
 
-const PhotoLibrary = ({ setImage, hidePhotoLibrary }) => {
+const PhotoLibrary = ({ setImage, hidePhotoLibrary, setIsUploadedImage }) => {
   const images = [one, two, three, four, five, six, seven, eight, nine];
   return (
     <div className="fixed top-0 left-0 max-h-[100vh] max-w-[100vw] h-full w-full flex justify-center items-center">
@@ -25,6 +25,7 @@ const PhotoLibrary = ({ setImage, hidePhotoLibrary }) => {
             <>
               <div
                 onClick={() => {
+                  setIsUploadedImage(false)
                   setImage(images[index]);
                   hidePhotoLibrary(false);
                 }}
