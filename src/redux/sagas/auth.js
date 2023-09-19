@@ -5,11 +5,10 @@ import { put, takeEvery } from "redux-saga/effects";
 import { LoadingActions } from "../slice/loadingSlice";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import moment from "moment";
 import { ChatActions } from "../slice/chatDetailsSlice";
 import { usersActions } from "../slice/users";
 import { selectedActions } from "../slice/selectedUserSlice";
-
+import generateCookieExpirationDates from "../../utils/cookieUtils"
 
 export function* RegisterAPIsaga({ payload, navigate }) {
   try {
@@ -30,16 +29,18 @@ export function* RegisterAPIsaga({ payload, navigate }) {
 
 export function* LoginAPIsaga({ payload, navigate }) {
   try {
-    console.log('yahh', );
     const response = yield LoginAPI(payload);
     if (response.status === 200) {
+      const {sevenDaysLater, oneDayLater} = generateCookieExpirationDates();
       Cookies.set(
         import.meta.env.VITE_ACCESS_TOKEN,
-        response.data.access_token
+        response.data.access_token,
+        {expires: oneDayLater}
       );
       Cookies.set(
         import.meta.env.VITE_REFRESH_TOKEN,
-        response.data.refresh_token
+        response.data.refresh_token,
+        {expires: sevenDaysLater}
       );
       delete response.data.access_token;
       delete response.data.refresh_token;

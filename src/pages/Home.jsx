@@ -84,6 +84,12 @@ const Home = () => {
 
     let user_ws_url = `${WS}${USER_WS}${user.id}/`;
     let _socket = null;
+    console.log(user_ws_url);
+
+    const handleSocketMessage = (e) => {
+      const notification = JSON.parse(e.data);
+      console.log(notification, "notification");
+    };
 
     const connectWebSocket = () => {
       console.log("first --");
@@ -96,16 +102,14 @@ const Home = () => {
         setUserWSConnected(false);
         setTimeout(connectWebSocket, 5000);
       };
-      const handleSocketMessage = (e) => {
-        const notification = JSON.parse(e.data);
-        console.log(notification, "notification");
-      };
-
+     
       _socket.addEventListener("open", handleSocketOpen);
       _socket.addEventListener("close", handleSocketError);
       _socket.addEventListener("message", handleSocketMessage);
     };
-    connectWebSocket();
+    if (user_ws_url){
+      connectWebSocket();
+    }
     return () => {
       if (_socket) {
         _socket.removeEventListener("message", handleSocketMessage);

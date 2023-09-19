@@ -25,7 +25,7 @@ const UserSearchCard = ({ user }) => {
         <Suspense fallback={<div>Loading...</div>}>
           <img
             className="object-cover object-center w-full h-full"
-            src={`http://localhost:8000/media/${user.default_avatar}`}
+            src={`http://localhost:8000${user?.profile_picture ? user.profile_picture : "/media/"+user?.default_avatar }`}
             alt="Woman looking front"
           />
           </Suspense>
