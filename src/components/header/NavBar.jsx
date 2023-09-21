@@ -1,9 +1,9 @@
 import { useState } from "react";
-import ChatOption from "./ChatOption";
-import NavBarProfileAvatar from "./NavBarProfileAvatar";
-import StatusNavigateButton from "./StatusNavigateButton";
-import NewChatNavigateButton from "./NewChatNavigateButton";
-import ThreeDotOptionIcon from "./ThreeDotOptionIcon";
+import ChatOption from "../contacts/ChatOption";
+import NavBarProfileAvatar from "../sidebar/NavBarProfileAvatar";
+import StatusNavigateButton from "../button/StatusNavigateButton";
+import NewChatNavigateButton from "../button/NewChatNavigateButton";
+import ThreeDotOptionIcon from "../common/ThreeDotOptionIcon";
 
 const NavBar = ({ setSidebar}) => {
   const [option, setOption] = useState(false);

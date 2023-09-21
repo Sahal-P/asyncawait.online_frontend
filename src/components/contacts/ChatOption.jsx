@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LOGOUT_USER, SET_LOADING } from "../redux/sagas/types";
+import { LOGOUT_USER, SET_LOADING } from "../../redux/sagas/types";
 
 const ChatOption = ({ option }) => {
   const dispatch = useDispatch()

@@ -1,7 +1,7 @@
-import SeenTick from "./SeenTick";
-import SendTick from "./SendTick";
-import DeliverdTick from "./DeliverdTick";
-import PendingTick from "./PendingTick";
+import SeenTick from "../icons/SeenTick";
+import SendTick from "../icons/SendTick";
+import DeliverdTick from "../icons/DeliverdTick";
+import PendingTick from "../icons/PendingTick";
 import { useEffect } from "react";
 import moment from "moment";
 
@@ -28,7 +28,8 @@ const MessageSelf = ({ message }) => {
         {moment(message?.timestampe).format("h:mm a")}
       </p>
       {/* </div> */}
-      <span className="text-sky-300 mt-auto ">
+      {/* {message?.status === "SENT" && <PendingTick />} */}
+      <span className="text-sky-300  mt-auto">
         <svg
           width="16"
           height="11"
@@ -37,8 +38,8 @@ const MessageSelf = ({ message }) => {
           className=""
         >
           {
-            (message?.status === "PENDING" && <PendingTick />) ||
-            (message?.status === "SENT" && <SendTick />) ||
+            (message?.status === "PENDING" && <SendTick />) ||
+            (message?.status === "SENT" && <PendingTick />) ||
             (message?.status === "DELIVERD" && <DeliverdTick /> ) ||
             (message?.status === "SEEN" && <SeenTick />)}
         </svg>

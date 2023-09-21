@@ -19,7 +19,10 @@ export default {
         "btn_primary": "#7e7ee3",
         "heading_color": "#abd9d9",
         "trans_bg": "#1c2c33",
-      }
+      },
+      screens: {
+        'xs': '340px', // Define a custom breakpoint 'xs' for 340px
+      },
     },
   },
   plugins: [],

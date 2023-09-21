@@ -5,9 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import store, { persistor } from "./store.js";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { SET_LOADING } from "./redux/sagas/types/index.js";
 
 const queryClient = new QueryClient(); 
 

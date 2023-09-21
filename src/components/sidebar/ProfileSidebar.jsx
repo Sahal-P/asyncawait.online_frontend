@@ -2,10 +2,11 @@ import { BiArrowBack } from "react-icons/bi";
 import { RiPencilFill } from "react-icons/ri";
 import { IoCameraSharp } from "react-icons/io5";
 import { useContext, useEffect } from "react";
-import { UserContext } from "../pages/Home";
+import { UserContext } from "../../pages/Home";
+import Image from "../common/Image";
 
 const ProfileSidebar = ({ setSidebar, sideBar, user }) => {
-
+  const imgUrl = `http://localhost:8000${user?.profile?.profile_picture ? user.profile.profile_picture : "/media/"+user?.profile?.default_avatar }`
   useEffect(() => {
   },[user])
   return (
@@ -36,10 +37,17 @@ const ProfileSidebar = ({ setSidebar, sideBar, user }) => {
           className="w-[205px] rounded-full overflow-hidden group relative cursor-pointer"
           onClick={(e) => fotoProfile(e)}
         >
-          <img
+          {/* <img
             src={`http://localhost:8000${user?.profile?.profile_picture ? user.profile.profile_picture : "/media/"+user?.profile?.default_avatar }`}
             alt=""
-          />
+          /> */}
+          <Image
+          url={imgUrl}
+          Imgclass={""}
+          width={205}
+          height={"100%"}
+          hash={user?.profile?.picture_blurhash}
+        />
           <div className="w-full h-full absolute top-0 z-50 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-200 flex flex-col justify-center items-center">
             <IoCameraSharp className="text-white text-2xl" />
             <h1 className="text-center text-white text-xs w-1/2">

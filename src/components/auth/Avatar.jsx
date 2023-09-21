@@ -3,11 +3,12 @@ import { TbCameraPlus } from 'react-icons/tb/'
 import AvatarContextMenu from './AvatarContextMenu'
 import PhotoPicker from './PhotoPicker'
 import CircularProgress from '@mui/material/CircularProgress';
-import PhotoLibrary from './PhotoLibrary'
+import PhotoLibrary from '../common/PhotoLibrary'
 import CapturePhoto from './CapturePhoto';
+import encodeImageToBlurhash from '../../utils/encodeBlurHash';
 
 
-const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage}) => {
+const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage, setImageBlurHash}) => {
     const [isContextMenuOpen, setisContextMenuOpen] = useState(false)
     const [showPhotoLibrary, setshowPhotoLibrary] = useState(false)
     const [showCapturePhoto, setShowCapturePhoto] = useState(false)
@@ -29,7 +30,11 @@ const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage}) 
         { name: "Upload Photo", callback: () => {
             setGrabPhoto(true)
         }},
-        { name: "Remove Photo", callback: () => setImage('/public/default_avatar_1.png')},
+        { name: "Remove Photo", callback: () => {
+            setImage('/public/default_avatar_1.png')
+            setImageBlurHash('UaHCZnoKG^WVL2ay#+j[I9fQ#6jZtnayZ~j[')
+        }
+        },
     ]
     const photoPickerChange = async (e) => {
         setIsLoading(true)
@@ -44,7 +49,12 @@ const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage}) 
         }
         reader.readAsDataURL(file)
         setTimeout(()=>{
-            console.log(data.src);
+            encodeImageToBlurhash(data.src)
+            .then(hash => {
+                setImageBlurHash(hash)
+            }).catch(error => {
+                console.error('Error:', error);
+            });
             setImage(data.src)
             setIsLoading(false)
         },1000)
@@ -68,18 +78,6 @@ const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage}) 
     <>
     <div className="flex items-center justify-center">
       {
-          type === 'sm' && 
-        <div className="relative h-10 w-10">
-            <img src={image} alt="avatar" className="rounded-full"/>
-        </div>
-      }
-      {
-          type === 'lg' && 
-        <div className="relative h-14 w-14">
-            <img src={image} alt="avatar" className="rounded-full"/>
-        </div>
-      }
-      {
           type === 'xl' && 
           <div className='relative cursor-pointer  z-0 h-20 w-20 hover:opacity-30'
           id='context-opener'
@@ -102,7 +100,7 @@ const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage}) 
         setContextMenu={setisContextMenuOpen} />
       )}
       {grabPhoto && <PhotoPicker onChange={photoPickerChange} /> }
-      {showPhotoLibrary && <PhotoLibrary setImage={setImage} hidePhotoLibrary={setshowPhotoLibrary} setIsUploadedImage={setIsUploadedImage}/> }
+      {showPhotoLibrary && <PhotoLibrary setImage={setImage} hidePhotoLibrary={setshowPhotoLibrary} setIsUploadedImage={setIsUploadedImage} setImageBlurHash={setImageBlurHash}/> }
       {showCapturePhoto && <CapturePhoto setImage={setImage} hide={setShowCapturePhoto}/> }
     </>
   )

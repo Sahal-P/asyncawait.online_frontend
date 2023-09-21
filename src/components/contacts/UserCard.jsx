@@ -1,18 +1,23 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { selectedActions } from "../redux/slice/selectedUserSlice";
-import { GET_CHAT_DETAILS } from "../redux/sagas/types";
-import useFetchChatDetails from "../hooks/useFetchChatDetails";
+import { selectedActions } from "../../redux/slice/selectedUserSlice";
+import useImageLoader, {
+  ImageWrapper,
+  StyledBlurhash,
+} from "../../hooks/useImageLoader";
+import Image from "../common/Image";
 
 const UserCard = ({ user }) => {
   const [isReaded, setIsReaded] = useState(true);
-  const [friend, setFriend] = useState(user);
   const dispatch = useDispatch();
+  const imgUrl = `http://localhost:8000${
+    user?.contact?.profile?.profile_picture
+      ? user.contact.profile.profile_picture
+      : "/media/" + user?.contact?.profile?.default_avatar
+  }`;
 
-  useEffect(()=>{
+  useEffect(() => {}, [user]);
 
-  },[user])
-  
   function readed() {
     setIsReaded(false);
     dispatch(selectedActions.setUser(user));
@@ -25,15 +30,19 @@ const UserCard = ({ user }) => {
       onClick={readed}
     >
       <div className="w-[50px] rounded-full overflow-hidden h-[50px] flex items-center justify-center">
-        <img
-          src={`http://localhost:8000${user?.contact?.profile?.profile_picture ? user.contact.profile.profile_picture : "/media/"+user?.contact?.profile?.default_avatar }`}
-          alt=""
-          className="w-full h-full"
+        <Image
+          url={imgUrl}
+          Imgclass={"w-full h-full"}
+          width={50}
+          height={50}
+          hash={user?.contact?.profile?.picture_blurhash}
         />
       </div>
       <div className="h-full w-[80%] py-3 border-b-[1px] border-slate-700 border-wid mr-3 hover:border-0 flex justify-between group">
         <div>
-          <h1 className="capitalize text-white">{user?.contact?.profile?.username}</h1>
+          <h1 className="capitalize text-white">
+            {user?.contact?.profile?.username}
+          </h1>
           <p
             className={`${isReaded ? "text-white" : "text-slate-500"} text-sm`}
           >
