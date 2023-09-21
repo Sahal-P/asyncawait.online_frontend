@@ -1,8 +1,22 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectedActions } from "../../redux/slice/selectedUserSlice";
+
 const NewChatNavigateButton = () => {
+  const dispatch = useDispatch();
+  const selected = useSelector((state) => state.selected.user);
+  const setNewChat = () => {
+    if (selected) {
+      dispatch(selectedActions.removeState());
+    }
+  }
+  useEffect(()=>{
+
+  },[])
   return (
     <button
       className="text-icon cursor-pointer p-[7px] rounded-full"
-      onClick={() => setNewChat(true)}
+      onClick={() => setNewChat()}
     >
       <svg viewBox="0 0 24 24" width="24" height="24" className="">
         <path

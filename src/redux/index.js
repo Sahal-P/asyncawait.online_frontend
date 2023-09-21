@@ -7,13 +7,21 @@ import LoadingReducers from "./slice/loadingSlice";
 import usersReducers from "./slice/users";
 import ChatReducers from "./slice/chatDetailsSlice";
 
-const userPersistConfig = {
-  key: "user",
-  storage: storageSession,
-};
+// const userPersistConfig = {
+//   key: "user",
+//   storage: storageSession,
+// };
+
+const persistReducers = combineReducers({
+  user: userReducers,
+  selected: selectedReducers,
+  loading: LoadingReducers,
+});
+
 
 const rootReducer = combineReducers({
-  user: persistReducer(userPersistConfig, userReducers),
+  // user: persistReducer(userPersistConfig, userReducers),
+  user: userReducers,
   users: usersReducers,
   selected: selectedReducers,
   loading: LoadingReducers,

@@ -8,9 +8,11 @@ import six from "/src/assets/image/avatar/6.png";
 import seven from "/src/assets/image/avatar/7.png";
 import eight from "/src/assets/image/avatar/8.png";
 import nine from "/src/assets/image/avatar/9.png";
+import {defaultAvatarHash} from '../../utils/encodeBlurHash'
 
-const PhotoLibrary = ({ setImage, hidePhotoLibrary, setIsUploadedImage }) => {
+const PhotoLibrary = ({ setImage, hidePhotoLibrary, setIsUploadedImage, setImageBlurHash }) => {
   const images = [one, two, three, four, five, six, seven, eight, nine];
+  const hash = defaultAvatarHash()
   return (
     <div className="fixed top-0 left-0 max-h-[100vh] max-w-[100vw] h-full w-full flex justify-center items-center">
       <div className="h-max w-max bg-hero gap-6 rounded-lg p-4">
@@ -26,6 +28,7 @@ const PhotoLibrary = ({ setImage, hidePhotoLibrary, setIsUploadedImage }) => {
               <div
                 onClick={() => {
                   setIsUploadedImage(false)
+                  setImageBlurHash(hash[index])
                   setImage(images[index]);
                   hidePhotoLibrary(false);
                 }}

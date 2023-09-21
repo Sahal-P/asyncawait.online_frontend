@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { MESSAGE_TYPE } from "../types";
-import MediaOption from "./MediaOption";
-import AudioRecordMode from "./AudioRecordMode";
-import AudioRecordIcon from "./AudioRecordIcon";
+import { MESSAGE_TYPE } from "../../../types";
+import MediaOption from "../icons/MediaOption";
+import AudioRecordMode from "../icons/AudioRecordMode";
+import AudioRecordIcon from "../icons/AudioRecordIcon";
+// eslint-disable-next-line no-unused-vars
 import { Skeleton } from "@mui/material";
-
+import {MdSend} from 'react-icons/md'
 const ChatTextArea = ({ send_message }) => {
   const [message, setMessage] = useState("");
   const [audioRecordMode, setAudioRecordMode] = useState(false);
@@ -35,8 +36,8 @@ const ChatTextArea = ({ send_message }) => {
     setMessage("");
   };
   return (
-    <div className="w-full h-[66px] bg-primary flex items-center px-6 justify-between">
-      <button className="text-icon">
+    <div className="w-full max-xs:h-[60px] h-[66px] bg-primary flex items-center max-sm:px-2 px-6 justify-between">
+      <button className="text-icon mx-1">
         <svg
           viewBox="0 0 24 24"
           width="24"
@@ -51,7 +52,7 @@ const ChatTextArea = ({ send_message }) => {
       </button>
       <MediaOption openMediaOption={openMediaOption} />
       <button
-        className={`text-icon ${openMediaOption && "bg-slate-700"} rounded-md`}
+        className={`text-icon ${openMediaOption && "bg-slate-700"} rounded-md mx-1`}
         onClick={() => setopenMediaOption(!openMediaOption)}
       >
         <svg
@@ -71,12 +72,12 @@ const ChatTextArea = ({ send_message }) => {
           ></path>
         </svg>
       </button>
-      <form onSubmit={handleSubmit} className="w-[786px] h-[39px]">
+      <form onSubmit={handleSubmit} className="max-xs:min-w-[150px] max-sm:w-[250px] max-md:w-[300px] max-lg:w-[450px] mx-2 w-[786px] h-[39px]">
         <input
           onChange={handleMessage}
           value={message}
           type="text"
-          className="bg-secondary/50 h-full rounded-lg w-full outline-none px-3 text-slate-300"
+          className="bg-secondary/50 h-full rounded-lg w-full outline-none px-3 max-sm:text-sm text-slate-300"
           placeholder="Type a message"
         />
       </form>
@@ -87,7 +88,9 @@ const ChatTextArea = ({ send_message }) => {
       {audioRecordMode ? <div className="relative w-10 h-10 mt-0">
       <AudioRecordMode handlesetAudioRecord={handlesetAudioRecord}/>
       </div> :
-      <AudioRecordIcon handlesetAudioRecord={handlesetAudioRecord}/>}
+      <MdSend onClick={handleSubmit} className="text-xl cursor-pointer text-icon"/>
+      // <AudioRecordIcon handlesetAudioRecord={handlesetAudioRecord}/>
+      }
     </div>
   );
 };

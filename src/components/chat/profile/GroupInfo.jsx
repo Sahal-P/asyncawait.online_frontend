@@ -1,4 +1,4 @@
-import UserGroup from "./UserGroup";
+import UserGroup from "../../contacts/UserGroup";
 
 const GroupInfo = () => {
   const name = "Group 1";

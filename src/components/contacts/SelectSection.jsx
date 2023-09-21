@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import FooterMessage from "./FooterMessage";
 import SearchBar from "./SearchBar";
-import { UserContext } from "../pages/Home";
+import { UserContext } from "../../pages/Home";
 import { useContext } from "react";
+import UserGroup from "./UserGroup";
 
 const SelectSection = ({contacts}) => {
   const [search, setSearch] = useState(false);

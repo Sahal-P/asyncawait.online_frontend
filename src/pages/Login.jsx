@@ -3,7 +3,7 @@ import { LOGIN_USER, SET_LOADING } from "../redux/sagas/types";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import CircularIndeterminate from "../components/CircularIndeterminate";
+import CircularIndeterminate from "../components/common/CircularIndeterminate";
 import { Alert, TextField } from "@mui/material";
 
 const Login = () => {

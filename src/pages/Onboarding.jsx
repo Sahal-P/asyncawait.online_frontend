@@ -1,7 +1,7 @@
-import Avatar from "../components/Avatar";
-import { useState } from "react";
+import Avatar from "../components/auth/Avatar";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import defaultAvatar from "/src/assets/image/default_avatar_1.png";
 import { createProfileAPI } from "../apis";
 import { useMutation } from "react-query";
@@ -13,6 +13,9 @@ const Onboarding = () => {
   const navigate = useNavigate();
   const { reg_id } = useParams();
   const [image, setImage] = useState(defaultAvatar);
+  const [imageBlurHash, setImageBlurHash] = useState(
+    "UaHCZnoKG^WVL2ay#+j[I9fQ#6jZtnayZ~j["
+  );
   const [isUploadedImage, setIsUploadedImage] = useState(false);
   const [UploadedImage, setUploadedImage] = useState(null);
   const [profile, setProfile] = useState({
@@ -23,14 +26,12 @@ const Onboarding = () => {
   const mutation = useMutation({
     mutationFn: (formData) => createProfileAPI(formData),
     onSuccess: async (res) => {
-      console.log("I'm first!", res);
       if (res.status === 201) {
         const password = Cookies.get(import.meta.env.VITE_USER_PASS);
         const current_user = {
           phone_number: res.data.phone_number,
           password: atob(password),
         };
-        console.log(current_user,'user');
         dispatch({ type: SET_LOADING, payload: true });
         dispatch({ type: LOGIN_USER, payload: current_user, navigate });
       }
@@ -41,7 +42,6 @@ const Onboarding = () => {
   });
 
   const handleChange = (props) => (event) => {
-    console.log(props, event.target.value);
     setProfile({ ...profile, [props]: event.target.value });
   };
   const handleSubmit = (event) => {
@@ -59,10 +59,15 @@ const Onboarding = () => {
         formData.append("default_avatar", match[1]);
       }
     }
+    formData.append("picture_blurhash", imageBlurHash);
     formData.append("user", reg_id);
 
     mutation.mutate(formData);
   };
+
+  useEffect(()=>{
+
+  },[imageBlurHash])
   return (
     <section className="bg-secondary">
       <div className="flex h-screen flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -84,12 +89,21 @@ const Onboarding = () => {
             </h1>
             <form className="space-y-4 md:space-y-2" onSubmit={handleSubmit}>
               <div className="text-center">
+                {/* <Blurhash
+                  hash={imageBlurHash}
+                  width={400}
+                  height={400}
+                  resolutionX={32}
+                  resolutionY={32}
+                  punch={1}
+                /> */}
                 <Avatar
                   type="xl"
                   image={image}
                   setImage={setImage}
                   setUploadedImage={setUploadedImage}
                   setIsUploadedImage={setIsUploadedImage}
+                  setImageBlurHash={setImageBlurHash}
                 />
                 <label
                   htmlFor="email"

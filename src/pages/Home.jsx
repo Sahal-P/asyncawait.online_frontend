@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import SelectSection from "../components/SelectSection";
-import ChatBox from "../components/ChatBox";
+import NavBar from "../components/header/NavBar";
+import SelectSection from "../components/contacts/SelectSection";
+import ChatBox from "../components/chat/ChatBox";
 import { useDispatch, useSelector } from "react-redux";
 import { createContext } from "react";
 import {
@@ -9,18 +9,20 @@ import {
   GET_CONTACTS,
   GET_FRIENDS,
   GET_USERS,
+  SET_LOADING,
 } from "../redux/sagas/types";
-import AddUser from "../components/AddUser";
+import AddUser from "../components/users/AddUser";
 import ImageDetails from "../components/ImageDetails";
-import ProfileSidebar from "../components/ProfileSidebar";
-import ChatDetails from "../components/ChatDetails";
+import ProfileSidebar from "../components/sidebar/ProfileSidebar";
+import ChatDetails from "../components/chat/profile/ChatDetails";
 import { USER_WS, WS } from "../apis/socket";
-import ConnectingSpinner from "../components/ConnectingSpinner";
+import ConnectingSpinner from "../components/common/ConnectingSpinner";
 import Dexie from "dexie";
 import InitialSideBarSkeleton from "../components/skeleton/InitialSideBarSkeleton";
 import { useQuery } from "react-query";
 import { getContactsAPI, getUsersAPI } from "../apis";
 import { userActions } from "../redux/slice/user";
+import ChatSkeleton from "../components/skeleton/ChatSkeleton";
 
 export const UserContext = createContext(null);
 
@@ -110,6 +112,7 @@ const Home = () => {
     if (user_ws_url){
       connectWebSocket();
     }
+    dispatch({ type: SET_LOADING, payload: false });
     return () => {
       if (_socket) {
         _socket.removeEventListener("message", handleSocketMessage);
@@ -119,16 +122,20 @@ const Home = () => {
   }, [NetworkOnline]);
 
   useEffect(() => {
-    if (Object.keys(selected).length !== 0) {
+    if (Object.keys(selected).length > 0) {
       setChatBox(true);
+    }else {
+      setChatBox(false);
     }
-  }, [selected]);
+  }, [selected, chatBox]);
 
   return (
     <UserContext.Provider
       value={{ user, contacts, chatDetails, setChatDetails, NetworkOnline }}
     >
+      
       <ConnectingSpinner userWSConnected={userWSConnected} />
+      <Suspense fallback={<ChatSkeleton/>}>
       <section className="w-full h-screen flex bg-chat-bg overflow-hidden md:justify-center pt-4 pb-4">
         {/* <ImageDetails /> */}
         <div className="h-full w-[410px] bg-secondary border-r border-slate-700 relative">
@@ -144,6 +151,8 @@ const Home = () => {
             
             
         </div>
+        
+        
         {chatBox ? (
           <>
             <ChatBox NetworkOnline={NetworkOnline} />
@@ -155,7 +164,9 @@ const Home = () => {
         ) : (
             <AddUser />
         )}
+
       </section>
+        </Suspense>
     </UserContext.Provider>
   );
 };

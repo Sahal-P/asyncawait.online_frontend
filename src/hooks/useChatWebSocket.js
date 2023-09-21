@@ -30,7 +30,7 @@ export function useChatWebSocket({
       const _socket = new WebSocket(chat_ws_url);
       const handleSocketMessage = (e) => {
         let data = JSON.parse(e.data);
-
+        console.log(data);
         if (data.message_type === MESSAGE_TYPE["TEXT_MESSAGE"]) {
           if (data.sender !== user.id) {
             dispatch(
