@@ -38,8 +38,8 @@ const MessageSelf = ({ message }) => {
           className=""
         >
           {
-            (message?.status === "PENDING" && <SendTick />) ||
-            (message?.status === "SENT" && <PendingTick />) ||
+            (message?.status === "PENDING" && <PendingTick />) ||
+            (message?.status === "SENT" && <SendTick />) ||
             (message?.status === "DELIVERD" && <DeliverdTick /> ) ||
             (message?.status === "SEEN" && <SeenTick />)}
         </svg>
