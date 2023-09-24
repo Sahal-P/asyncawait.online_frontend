@@ -1,10 +1,10 @@
-import userReducers from "./slice/user";
+import userReducers from "./slice/userSlice";
 import { combineReducers } from "@reduxjs/toolkit";
-import storageSession from "redux-persist/lib/storage/session";
-import persistReducer from "redux-persist/es/persistReducer";
+// import storageSession from "redux-persist/lib/storage/session";
+// import persistReducer from "redux-persist/es/persistReducer";
 import selectedReducers from "./slice/selectedUserSlice";
 import LoadingReducers from "./slice/loadingSlice";
-import usersReducers from "./slice/users";
+import usersReducers from "./slice/usersSlice";
 import ChatReducers from "./slice/chatDetailsSlice";
 
 // const userPersistConfig = {
@@ -12,11 +12,11 @@ import ChatReducers from "./slice/chatDetailsSlice";
 //   storage: storageSession,
 // };
 
-const persistReducers = combineReducers({
-  user: userReducers,
-  selected: selectedReducers,
-  loading: LoadingReducers,
-});
+// const persistReducers = combineReducers({
+//   user: userReducers,
+//   selected: selectedReducers,
+//   loading: LoadingReducers,
+// });
 
 
 const rootReducer = combineReducers({

@@ -1,6 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useSelector } from "react-redux";
 
 const name = "user";
 const initialState = createinitialState();
@@ -28,6 +26,7 @@ function createReducers() {
     setContacts,
     addContact,
     removeState,
+    editContact
   };
   function setUser(state, action) {
     state.user = action.payload;
@@ -41,6 +40,21 @@ function createReducers() {
   function removeState(state, action) {
     return initialState
   }
+  function editContact(state, action){
+
+    const { id, message } = action.payload;
+
+  // Get the message from the state
+  const contact = state.contacts.find((contact) => contact.contact.id === id);
+    console.log(contact);
+  // If the message exists, update its status
+  // if (message) {
+  //   message.status = status;
+  // }
+
+  // Return the new state
+  return state;
+}
 }
 
 export default userReducers;

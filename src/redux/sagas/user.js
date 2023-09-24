@@ -6,8 +6,8 @@ import {
   getContactsAPI,
 } from "../../apis";
 import { selectedActions } from "../slice/selectedUserSlice";
-import { userActions } from "../slice/user";
-import { usersActions } from "../slice/users";
+import { userActions } from "../slice/userSlice";
+import { usersActions } from "../slice/usersSlice";
 import {
   GET_CHAT_DETAILS,
   GET_CONTACTS,
@@ -49,9 +49,7 @@ export function* getUsersSaga() {
 
 export function* messageUnknownSaga({ id }) {
   try {
-    console.log(id,'sagaaaaa');
     const contact = yield messageUnknown(id);
-    console.log(contact,'----------');
     yield put(userActions.addContact(contact.data));
     yield put(
       selectedActions.setUser(contact.data)

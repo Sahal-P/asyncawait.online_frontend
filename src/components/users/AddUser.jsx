@@ -4,7 +4,7 @@ import UserSearchCard from "./UserSearchCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { getUsersAPI } from "../../apis";
-import { usersActions } from "../../redux/slice/users";
+import { usersActions } from "../../redux/slice/usersSlice";
 
 const AddUser = () => {
   const dispatch = useDispatch()

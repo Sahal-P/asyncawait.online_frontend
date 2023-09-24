@@ -8,9 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 
 
-export function useChatWebSocket({
-  NetworkOnline,
-}) {
+export function useChatWebSocket(NetworkOnline,) {
+  const selected = useSelector((state) => state.selected.user);
   const user = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
@@ -118,6 +117,7 @@ export function useChatWebSocket({
   const send_message = (message) => {
     message.id = uuidv4();
     message.sender = user.id;
+    message.reciever = selected?.contact?.id;
     message.timestampe = moment().format("YYYY-MM-DD HH:mm:ss.SSSSSS");
     message.status = "PENDING";
     dispatch(ChatActions.addMessage(message));
