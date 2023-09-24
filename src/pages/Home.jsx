@@ -21,8 +21,9 @@ import Dexie from "dexie";
 import InitialSideBarSkeleton from "../components/skeleton/InitialSideBarSkeleton";
 import { useQuery } from "react-query";
 import { getContactsAPI, getUsersAPI } from "../apis";
-import { userActions } from "../redux/slice/user";
+import { userActions } from "../redux/slice/userSlice";
 import ChatSkeleton from "../components/skeleton/ChatSkeleton";
+import { NOTIFICATION_TYPE } from "../types";
 
 export const UserContext = createContext(null);
 
@@ -89,9 +90,11 @@ const Home = () => {
     console.log(user_ws_url);
 
     const handleSocketMessage = (e) => {
-      const notification = JSON.parse(e.data);
-      console.log(notification, "notification");
-    };
+      const data = JSON.parse(e.data);
+      if (data.message_type === NOTIFICATION_TYPE["NEW_MESSAGE"]) {
+        console.log(data, "Notification recieved");
+    }
+  }
 
     const connectWebSocket = () => {
       console.log("first --");

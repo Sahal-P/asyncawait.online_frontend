@@ -6,15 +6,19 @@ import useImageLoader, {
   StyledBlurhash,
 } from "../../hooks/useImageLoader";
 import Image from "../common/Image";
+import UserCardDetails from "./UserCardDetails";
 
 const UserCard = ({ user }) => {
   const [isReaded, setIsReaded] = useState(true);
+  const [lastMessage, setLastMessage] = useState("")
   const dispatch = useDispatch();
   const imgUrl = `http://localhost:8000${
     user?.contact?.profile?.profile_picture
       ? user.contact.profile.profile_picture
       : "/media/" + user?.contact?.profile?.default_avatar
   }`;
+
+  
 
   useEffect(() => {}, [user]);
 
@@ -38,38 +42,7 @@ const UserCard = ({ user }) => {
           hash={user?.contact?.profile?.picture_blurhash}
         />
       </div>
-      <div className="h-full w-[80%] py-3 border-b-[1px] border-slate-700 border-wid mr-3 hover:border-0 flex justify-between group">
-        <div>
-          <h1 className="capitalize text-white">
-            {user?.contact?.profile?.username}
-          </h1>
-          <p
-            className={`${isReaded ? "text-white" : "text-slate-500"} text-sm`}
-          >
-            Hello world!
-          </p>
-        </div>
-        <div className="flex flex-col items-end">
-          <p
-            className={
-              isReaded
-                ? "text-line text-xs font-medium"
-                : "text-slate-700 font font-medium text-xs"
-            }
-          >
-            12.00
-          </p>
-          <div className="flex w-full">
-            {isReaded ? (
-              <div className="w-[20px] h-[20px] bg-line rounded-full flex items-center justify-center">
-                <p>1</p>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-      </div>
+      <UserCardDetails username={user?.contact?.profile?.username} isReaded={isReaded}/>
     </div>
   );
 };

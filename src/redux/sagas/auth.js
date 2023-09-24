@@ -1,12 +1,12 @@
 import { LoginAPI, LogoutAPI, registerAPI } from "../../apis";
-import { userActions } from "../slice/user";
+import { userActions } from "../slice/userSlice";
 import { LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "./types";
 import { put, takeEvery } from "redux-saga/effects";
 import { LoadingActions } from "../slice/loadingSlice";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { ChatActions } from "../slice/chatDetailsSlice";
-import { usersActions } from "../slice/users";
+import { usersActions } from "../slice/usersSlice";
 import { selectedActions } from "../slice/selectedUserSlice";
 import generateCookieExpirationDates from "../../utils/cookieUtils"
 

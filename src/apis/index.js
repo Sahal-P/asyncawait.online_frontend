@@ -68,6 +68,7 @@ export const getChatDetails = async (id) =>
   axios.post(`chat/get_chat_details`, { id });
 
 export const createUserAPI = async (user) => axios.post(`/users`, user);
+export const getContactLastMessage = async (conatct_id) => axios.get(`/get_contact_last_message`, conatct_id);
 export const updateUserAPI = async (user) =>
   axios.post(`/users/${user.id}`, user);
 export const deleteUserByIdAPI = async (id) => axios.post(`/users/${id}`);
