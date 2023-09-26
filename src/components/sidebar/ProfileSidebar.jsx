@@ -4,8 +4,11 @@ import { IoCameraSharp } from "react-icons/io5";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../pages/Home";
 import Image from "../common/Image";
+import { useDispatch, useSelector } from "react-redux";
+import { ImageActions } from "../../redux/slice/imageViewSlice";
 
 const ProfileSidebar = ({ setSidebar, sideBar, user }) => {
+  const dispatch = useDispatch()
   const imgUrl = `http://localhost:8000${user?.profile?.profile_picture ? user.profile.profile_picture : "/media/"+user?.profile?.default_avatar }`
   useEffect(() => {
   },[user])
@@ -35,7 +38,10 @@ const ProfileSidebar = ({ setSidebar, sideBar, user }) => {
       <div className="w-full flex justify-center mt-8">
         <div
           className="w-[205px] rounded-full overflow-hidden group relative cursor-pointer"
-          onClick={(e) => fotoProfile(e)}
+          onClick={() => {
+            dispatch(ImageActions.setView(true))
+            dispatch(ImageActions.setDetails({imgUrl,hash: user?.profile?.picture_blurhash, username:user?.profile?.username}))
+          }}
         >
           {/* <img
             src={`http://localhost:8000${user?.profile?.profile_picture ? user.profile.profile_picture : "/media/"+user?.profile?.default_avatar }`}
@@ -45,7 +51,7 @@ const ProfileSidebar = ({ setSidebar, sideBar, user }) => {
           url={imgUrl}
           Imgclass={""}
           width={205}
-          height={"100%"}
+          height={205}
           hash={user?.profile?.picture_blurhash}
         />
           <div className="w-full h-full absolute top-0 z-50 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-200 flex flex-col justify-center items-center">

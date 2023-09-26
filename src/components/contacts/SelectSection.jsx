@@ -5,13 +5,15 @@ import SearchBar from "./SearchBar";
 import { UserContext } from "../../pages/Home";
 import { useContext } from "react";
 import UserGroup from "./UserGroup";
+import { useSelector } from "react-redux";
 
-const SelectSection = ({contacts}) => {
+const SelectSection = () => {
   const [search, setSearch] = useState(false);
+  const contacts = useSelector((state) => state.user.contacts);
+
   const [filter, setFilter] = useState(false);
   const { user } = useContext(UserContext);
   useEffect(() => {
-    console.log(contacts);
   }, [contacts]);
   return (
     <>

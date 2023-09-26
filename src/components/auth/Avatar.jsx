@@ -5,6 +5,8 @@ import PhotoPicker from './PhotoPicker'
 import CircularProgress from '@mui/material/CircularProgress';
 import PhotoLibrary from '../common/PhotoLibrary'
 import CapturePhoto from './CapturePhoto';
+// import heic2any from 'heic2any';
+
 import encodeImageToBlurhash from '../../utils/encodeBlurHash';
 
 
@@ -38,7 +40,13 @@ const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage, s
     ]
     const photoPickerChange = async (e) => {
         setIsLoading(true)
-        const file = e.target.files[0];
+        let file = e.target.files[0];
+        // if (file.type === 'image/heic' || file.type === "") {
+        //     console.log('yessss');
+        //     const blob = await heic2any({ blob: file });
+        //     const jpegFile = new File([blob], 'image.jpeg', { type: 'image/jpeg' });
+        //     file = jpegFile;
+        // }
         setUploadedImage(file)
         setIsUploadedImage(true)
         const reader = new FileReader()

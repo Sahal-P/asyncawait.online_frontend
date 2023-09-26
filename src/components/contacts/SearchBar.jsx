@@ -1,9 +1,13 @@
 import { AiOutlineSearch } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const SearchBar = ({ filter, setFilter }) => {
   return (
     <div className="flex w-full h-[53px] py-[7px] px-3">
-      <form action="" className="w-full">
+      <form onSubmit={(e) =>{
+        e.preventDefault()
+        toast.warning("search feature will be added soon")}
+        }  className="w-full">
         <div className="h-[90%] w-full bg-primary rounded-lg overflow-hidden flex items-center px-3 transition-all ease-in-out duration-300">
           <AiOutlineSearch className="text-icon transition-all ease-in-out duration-300 cursor-pointer" />
           <input

@@ -5,6 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'oxygen': ['Oxygen', 'sans-serif' ],
+      'ubuntu': ['Ubuntu', 'sans-serif' ],
+    },
     extend: {
       colors: {
         "primary": "#1c2c33",
@@ -19,6 +23,7 @@ export default {
         "btn_primary": "#7e7ee3",
         "heading_color": "#abd9d9",
         "trans_bg": "#1c2c33",
+        "popup_bg": "#233138"
       },
       screens: {
         'xs': '340px', // Define a custom breakpoint 'xs' for 340px

@@ -1,8 +1,12 @@
+import { useDispatch } from "react-redux";
+import { StatusActions } from "../../redux/slice/statusSlice";
+
 const StatusNavigateButton = () => {
+  const dispatch = useDispatch()
   return (
     <button
       className="text-icon cursor-pointer p-[7px] rounded-full"
-      onClick={() => setStatus(true)}
+      onClick={() => dispatch(StatusActions.setView(true))}
     >
       <svg
         version="1.1"

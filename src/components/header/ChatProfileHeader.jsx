@@ -5,6 +5,7 @@ import { UserContext } from "../../pages/Home";
 import Slide from "@mui/material/Slide";
 import { Skeleton } from "@mui/material";
 import Image from "../common/Image";
+import moment from "moment";
 
 // eslint-disable-next-line no-unused-vars
 const ProfilePictureSkeleton = () => (
@@ -18,6 +19,23 @@ const ProfilePictureSkeleton = () => (
   </div>
 );
 
+function formatLastSeen(lastSeen) {
+  const now = moment();
+  const lastSeenDate = moment(lastSeen);
+
+  const daysDifference = now.diff(lastSeenDate, 'days');
+
+  if (daysDifference === 0) {
+    return 'today';
+  } else if (daysDifference === 1) {
+    return 'yesterday';
+  } else if (daysDifference <= 7) {
+    return lastSeenDate.format('dddd'); // Get the day name (e.g., "Monday", "Tuesday")
+  } else {
+    return lastSeenDate.format('MMMM D, YYYY'); // Format for older dates
+  }
+}
+
 const ChatProfileHeader = ({ user, chatWSConnected }) => {
   const { setChatDetails, chatDetails } = useContext(UserContext);
   const imgUrl = `http://localhost:8000${
@@ -27,7 +45,10 @@ const ChatProfileHeader = ({ user, chatWSConnected }) => {
   }`;
   const option = false;
 
-  useEffect(() => {}, [user, chatWSConnected]);
+  const formatedLastSeen = formatLastSeen(user?.contact?.profile?.last_seen)
+  useEffect(() => {
+
+  }, [user, chatWSConnected]);
 
   return (
     <div className="z-40 w-full h-[60px] bg-primary flex items-center pl-3 pr-6 relative">
@@ -40,8 +61,8 @@ const ChatProfileHeader = ({ user, chatWSConnected }) => {
         <Image
           url={imgUrl}
           Imgclass={""}
-          width={"100%"}
-          height={"100%"}
+          width={45}
+          height={45}
           hash={user?.contact?.profile?.picture_blurhash}
         />
       </div>
@@ -53,9 +74,11 @@ const ChatProfileHeader = ({ user, chatWSConnected }) => {
             : user?.contact?.phone_number}
         </h1>
         <Slide direction="down" in={chatWSConnected} mountOnEnter unmountOnExit>
-          <div className={chatDetails ? "block" : "hidden"}>
+          <div className={chatWSConnected ? "block" : "hidden"}>
             <p className={` text-xs text-slate-400`}>
-              last seen today at 2:30pm
+              {user?.contact?.profile?.is_online === true ? "online" :
+              `last seen ${formatedLastSeen} at ${moment(user?.contact?.profile?.last_seen).format("h:mm a")}`
+              }
             </p>
           </div>
         </Slide>

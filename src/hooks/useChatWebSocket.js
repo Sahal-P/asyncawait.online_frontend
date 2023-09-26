@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MESSAGE_TYPE } from "../types";
+import { MESSAGE_TYPE, NOTIFICATION_TYPE } from "../types";
 import { CHAT_WS, WS } from "../apis/socket";
 import { ChatActions } from "../redux/slice/chatDetailsSlice";
 import { MESSAGE_READED } from "../types/Message";
@@ -22,10 +22,16 @@ export function useChatWebSocket(NetworkOnline,) {
     if (!NetworkOnline) {
       setChatWSConnected(false);
     }
+    
     let _socket = null;
     let chat_ws_url = `${WS}${CHAT_WS}${chat_id}/`;
 
     const connectWebSocket = () => {
+      if (socket.current) {
+        socket.current.close();
+        socket.current = null;
+        setChatWSConnected(false);
+      }
       const _socket = new WebSocket(chat_ws_url);
       const handleSocketMessage = (e) => {
         let data = JSON.parse(e.data);
@@ -68,6 +74,9 @@ export function useChatWebSocket(NetworkOnline,) {
             );
           }
         }
+        if (data.message_type === NOTIFICATION_TYPE["USER_LEFT"]){
+          console.log(data, "user left");
+        }
       };
 
       const handleSocketOpen = (e) => {
@@ -77,7 +86,8 @@ export function useChatWebSocket(NetworkOnline,) {
       
       const handleSocketError = (e) => {
         console.log("%cConnection Error", "color:red", e);
-
+        _socket?.close()
+        socket?.current?.close()
         setChatWSConnected(false);
         setTimeout(connectWebSocket, 5000);
       };
@@ -89,12 +99,15 @@ export function useChatWebSocket(NetworkOnline,) {
       // chatboxRef.current.scrollTop = chatboxRef?.current?.scrollHeight;
       // Cleanup function to unsubscribe the event listener
     };
+    
     if (chat_id) {
       connectWebSocket();
     }
 
     return () => {
       if (_socket) {
+        _socket.close(); // Close the socket when the component unmounts
+        socket.current.close();
         _socket.removeEventListener(
           "message",
           connectWebSocket.handleSocketMessage
@@ -104,8 +117,6 @@ export function useChatWebSocket(NetworkOnline,) {
           "error",
           connectWebSocket.handleSocketError
         );
-        _socket.close(); // Close the socket when the component unmounts
-        socket.current.close();
       }
     };
   }, [chat_id, NetworkOnline]);
