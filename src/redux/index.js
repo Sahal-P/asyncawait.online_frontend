@@ -6,6 +6,8 @@ import selectedReducers from "./slice/selectedUserSlice";
 import LoadingReducers from "./slice/loadingSlice";
 import usersReducers from "./slice/usersSlice";
 import ChatReducers from "./slice/chatDetailsSlice";
+import ImageReducers from "./slice/imageViewSlice";
+import StatusReducers from "./slice/statusSlice";
 
 // const userPersistConfig = {
 //   key: "user",
@@ -26,6 +28,8 @@ const rootReducer = combineReducers({
   selected: selectedReducers,
   loading: LoadingReducers,
   chat: ChatReducers,
+  image: ImageReducers,
+  status: StatusReducers,
 });
 
 export default rootReducer;

@@ -9,7 +9,7 @@ import webSocketRootSaga from "./redux/sagas/websocketSaga";
 const rootPersistConfig = {
   key: "root",
   storage,
-  blacklist: ["users"],
+  blacklist: ["users", "image", "status"],
 };
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

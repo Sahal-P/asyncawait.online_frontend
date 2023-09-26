@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { REGISTER_USER } from "../redux/sagas/types";
+import { REGISTER_USER, SET_LOADING } from "../redux/sagas/types";
 
 
 const Register = () => {
@@ -25,6 +25,7 @@ const Register = () => {
   //    console.log("Password requirements: 8-20 characters, 1 number, 1 letter, 1 symbol.");
   //    return;
   //  }
+    dispatch({ type: SET_LOADING, payload: true });
     dispatch({ type: REGISTER_USER, payload: user, navigate });
   };
 

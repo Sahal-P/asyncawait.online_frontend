@@ -26,15 +26,17 @@ const ConnectingSpinner = ({ userWSConnected }) => {
       onClose={handleClose}
       message=""
       key={vertical + horizontal}
+      className="bg-slate-950 shadow-slate-950 shadow-sm"
       style={{
-        backgroundColor: "#1a6b5a",
+        // backgroundColor: "#1a6b5a",
         borderRadius: "10px",
-        width: "10rem",
+        width: "7.5rem",
+        height:"2rem",
       }}
     >
-      <div className={`flex m-[0.5rem] text-center w-[100wh] bg-[#1a6b5a]`}>
-        <div className="text-white mr-5">connecting...</div>
-        <div className="ajax_spinner mt-2">
+      <div className={`flex m-[0.5rem] text-center w-full bg-slate-950`}>
+        <div className="text-neutral-300 text-sm mr-3 font-ubuntu">connecting...</div>
+        <div className="ajax_spinner mt-2 ml-1">
           <div className="bar-1"></div>
           <div className="bar-2"></div>
           <div className="bar-3"></div>

@@ -50,7 +50,17 @@ const ChatBox = ({ NetworkOnline }) => {
   useEffect(() => {
     chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
     handleScroll();
+    
   }, [history, isLoading]);
+
+  useEffect(()=>{
+    
+    return () => {
+      if (socket){
+        socket?.current?.close()
+      }
+    }
+  },[])
 
   return (
     <div

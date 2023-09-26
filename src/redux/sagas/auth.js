@@ -19,10 +19,14 @@ export function* RegisterAPIsaga({ payload, navigate }) {
         btoa(payload.password)
       );
       toast.success("Created"); 
+      yield put(LoadingActions.setLoading(false));
       navigate(`/onboarding/${response.data.id}`)
     }
+    toast.error("Error creating user"); 
+    yield put(LoadingActions.setLoading(false));
     //   yield put(userActions.setUser(user.data));
   } catch (error) {
+    yield put(LoadingActions.setLoading(false));
     toast.error("Somthing Went Wrong");
   }
 }

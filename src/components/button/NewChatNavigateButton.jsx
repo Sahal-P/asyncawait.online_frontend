@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedActions } from "../../redux/slice/selectedUserSlice";
+import { ChatActions } from "../../redux/slice/chatDetailsSlice";
 
 const NewChatNavigateButton = () => {
   const dispatch = useDispatch();
@@ -8,6 +9,7 @@ const NewChatNavigateButton = () => {
   const setNewChat = () => {
     if (selected) {
       dispatch(selectedActions.removeState());
+      dispatch(ChatActions.removeState());
     }
   }
   useEffect(()=>{

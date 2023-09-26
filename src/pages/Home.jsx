@@ -24,6 +24,7 @@ import { getContactsAPI, getUsersAPI } from "../apis";
 import { userActions } from "../redux/slice/userSlice";
 import ChatSkeleton from "../components/skeleton/ChatSkeleton";
 import { NOTIFICATION_TYPE } from "../types";
+import Status from "../components/status/Status";
 
 export const UserContext = createContext(null);
 
@@ -34,7 +35,6 @@ const Home = () => {
   const [userWSConnected, setUserWSConnected] = useState(false);
   const selected = useSelector((state) => state.selected.user);
   const user = useSelector((state) => state.user.user);
-  const contacts = useSelector((state) => state.user.contacts);
   const [sideBar, setSidebar] = useState(false);
   const [chatDetails, setChatDetails] = useState(false);
 
@@ -92,7 +92,8 @@ const Home = () => {
     const handleSocketMessage = (e) => {
       const data = JSON.parse(e.data);
       if (data.message_type === NOTIFICATION_TYPE["NEW_MESSAGE"]) {
-        console.log(data, "Notification recieved");
+        console.log(data);
+        dispatch(userActions.editContact(data))
     }
   }
 
@@ -134,13 +135,14 @@ const Home = () => {
 
   return (
     <UserContext.Provider
-      value={{ user, contacts, chatDetails, setChatDetails, NetworkOnline }}
+      value={{ user, chatDetails, setChatDetails, NetworkOnline }}
     >
       
       <ConnectingSpinner userWSConnected={userWSConnected} />
       <Suspense fallback={<ChatSkeleton/>}>
       <section className="w-full h-screen flex bg-chat-bg overflow-hidden md:justify-center pt-4 pb-4">
-        {/* <ImageDetails /> */}
+        <ImageDetails />
+        <Status/>
         <div className="h-full w-[410px] bg-secondary border-r border-slate-700 relative">
           {contactsLoading ? <InitialSideBarSkeleton /> : <>
               <ProfileSidebar
@@ -149,7 +151,7 @@ const Home = () => {
                 user={user}
               />
               <NavBar setSidebar={setSidebar} />
-              <SelectSection contacts={contacts} />
+              <SelectSection />
             </>}
             
             

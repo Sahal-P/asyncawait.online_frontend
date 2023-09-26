@@ -2,81 +2,81 @@
 
  .ajax_spinner {
     /* position: absolute; */
-    width: 15px;
-    height: 15px;
+    width: 2px;
+    height: 2px;
     /* left: 50%;
     top: 10%; */
   }
   .ajax_spinner > div {
     position: absolute;
-    width: 2px;
-    height: 8px;
+    width: 1.3px;
+    height: 5px;
     background-color: #c5c5c5;
     opacity: 0.05;
     animation: fadeit 0.8s linear infinite;
   }
   .ajax_spinner > .bar-1 {
-    transform: rotate(0deg) translate(0, -12px);
+    transform: rotate(0deg) translate(0, -8px);
     animation-delay: 0.05s;
   }
   .ajax_spinner > .bar-2 {
-    transform: rotate(22.5deg) translate(0, -12px);
+    transform: rotate(22.5deg) translate(0, -8px);
     animation-delay: 0.1s;
   }
   .ajax_spinner > .bar-3 {
-    transform: rotate(45deg) translate(0, -12px);
+    transform: rotate(45deg) translate(0, -8px);
     animation-delay: 0.15s;
   }
   .ajax_spinner > .bar-4 {
-    transform: rotate(67.5deg) translate(0, -12px);
+    transform: rotate(67.5deg) translate(0, -8px);
     animation-delay: 0.2s;
   }
   .ajax_spinner > .bar-5 {
-    transform: rotate(90deg) translate(0, -12px);
+    transform: rotate(90deg) translate(0, -8px);
     animation-delay: 0.25s;
   }
   .ajax_spinner > .bar-6 {
-    transform: rotate(112.5deg) translate(0, -12px);
+    transform: rotate(112.5deg) translate(0, -8px);
     animation-delay: 0.3s;
   }
   .ajax_spinner > .bar-7 {
-    transform: rotate(135deg) translate(0, -12px);
+    transform: rotate(135deg) translate(0, -8px);
     animation-delay: 0.35s;
   }
   .ajax_spinner > .bar-8 {
-    transform: rotate(157.5deg) translate(0, -12px);
+    transform: rotate(157.5deg) translate(0, -8px);
     animation-delay: 0.4s;
   }
   .ajax_spinner > .bar-9 {
-    transform: rotate(180deg) translate(0, -12px);
+    transform: rotate(180deg) translate(0, -8px);
     animation-delay: 0.45s;
   }
   .ajax_spinner > .bar-10 {
-    transform: rotate(202.5deg) translate(0, -12px);
+    transform: rotate(202.5deg) translate(0, -8px);
     animation-delay: 0.5s;
   }
   .ajax_spinner > .bar-11 {
-    transform: rotate(225deg) translate(0, -12px);
+    transform: rotate(225deg) translate(0, -8px);
     animation-delay: 0.55s;
   }
   .ajax_spinner > .bar-12 {
-    transform: rotate(247.5deg) translate(0, -12px);
+    transform: rotate(247.5deg) translate(0, -8px);
     animation-delay: 0.6s;
   }
   .ajax_spinner > .bar-13 {
-    transform: rotate(270deg) translate(0, -12px);
+    transform: rotate(270deg) translate(0, -8px);
     animation-delay: 0.65s;
   }
   .ajax_spinner > .bar-14 {
-    transform: rotate(292.5deg) translate(0, -12px);
+    transform: rotate(292.5deg) translate(0, -8px);
     animation-delay: 0.7s;
   }
   .ajax_spinner > .bar-15 {
-    transform: rotate(315deg) translate(0, -12px);
+    transform: rotate(315deg) translate(0, -8px);
     animation-delay: 0.75s;
   }
   .ajax_spinner > .bar-16 {
-    transform: rotate(337.5deg) translate(0, -12px);
+    transform: rotate(337.5deg) translate(0, -8px);
     animation-delay: 0.8s;
   }
   @keyframes fadeit {

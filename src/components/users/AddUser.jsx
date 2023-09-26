@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { getUsersAPI } from "../../apis";
 import { usersActions } from "../../redux/slice/usersSlice";
+import UsersCardSkeleton from "../skeleton/UsersCardSkeleton";
 
 const AddUser = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // const users = useSelector((state) => state.users.users);
   const [users, setUsers] = useState([])
 
@@ -25,13 +26,28 @@ const AddUser = () => {
       <div className="flex mt-4 w-full justify-center items-center">
         <UserSearchBar />
       </div>
-      {!usersLoading && 
-      <div className="flex flex-wrap justify-center w-[90%] overflow-y-scroll">
+      {!usersLoading ? 
+      (<div className="flex flex-wrap justify-center w-[90%] overflow-y-scroll">
       {users?.map((user) => (
         <UserSearchCard key={user.id} user={user} />
       ))}
-    </div>
+    </div>) :
+    (
+      <div className="flex flex-wrap justify-center w-[90%] overflow-y-scroll">
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      <UsersCardSkeleton/>
+      </div>
+    )
       }
+      
       
       <span className="w-full h-[6px] bg-line block mt-auto"></span>
     </div>

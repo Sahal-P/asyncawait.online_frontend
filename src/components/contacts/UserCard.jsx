@@ -20,7 +20,8 @@ const UserCard = ({ user }) => {
 
   
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+  }, [user]);
 
   function readed() {
     setIsReaded(false);
@@ -36,13 +37,13 @@ const UserCard = ({ user }) => {
       <div className="w-[50px] rounded-full overflow-hidden h-[50px] flex items-center justify-center">
         <Image
           url={imgUrl}
-          Imgclass={"w-full h-full"}
+          Imgclass={""}
           width={50}
           height={50}
           hash={user?.contact?.profile?.picture_blurhash}
         />
       </div>
-      <UserCardDetails username={user?.contact?.profile?.username} isReaded={isReaded}/>
+      <UserCardDetails contact={user} isReaded={isReaded}/>
     </div>
   );
 };

@@ -42,15 +42,18 @@ function createReducers() {
   }
   function editContact(state, action){
 
-    const { id, message } = action.payload;
+    const { content, sender, timestamp, message_type  } = action.payload;
 
   // Get the message from the state
-  const contact = state.contacts.find((contact) => contact.contact.id === id);
-    console.log(contact);
+  const contact = state.contacts.find((contact) => contact.contact.id === sender);
+    console.log(contact,"kittiyeeee");
   // If the message exists, update its status
-  // if (message) {
-  //   message.status = status;
-  // }
+  if (contact) {
+    contact.last_activity = content;
+    contact.last_activity_type = "Message";
+    contact.unread_count +=1 ;
+    contact.last_activity_time = timestamp ;
+  }
 
   // Return the new state
   return state;
