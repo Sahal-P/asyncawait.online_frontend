@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useSelector } from "react-redux";
+/* eslint-disable no-unused-vars */
+import { createSlice } from "@reduxjs/toolkit";
 
 const name = "chat";
 const initialState = createinitialState();

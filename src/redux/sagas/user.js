@@ -1,5 +1,4 @@
 import {
-  getFriendsAPI,
   getUserAPI,
   getUsersAPI,
   messageUnknown,
@@ -9,9 +8,7 @@ import { selectedActions } from "../slice/selectedUserSlice";
 import { userActions } from "../slice/userSlice";
 import { usersActions } from "../slice/usersSlice";
 import {
-  GET_CHAT_DETAILS,
   GET_CONTACTS,
-  GET_FRIENDS,
   GET_USER,
   GET_USERS,
   MESSAGE_UNKNOWN,

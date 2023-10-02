@@ -20,7 +20,6 @@ import StatusReducers from "./slice/statusSlice";
 //   loading: LoadingReducers,
 // });
 
-
 const rootReducer = combineReducers({
   // user: persistReducer(userPersistConfig, userReducers),
   user: userReducers,

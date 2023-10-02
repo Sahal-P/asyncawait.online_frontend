@@ -1,9 +1,7 @@
 import { GET_CHAT_DETAILS, SET_CHAT_DETAILS } from "./types";
 import { put, takeEvery } from "redux-saga/effects";
-import { LoadingActions } from "../slice/loadingSlice";
 import { getChatDetails } from "../../apis";
 import { ChatActions } from "../slice/chatDetailsSlice";
-import { useQuery } from "react-query";
 
 export function* GetChatDetailsSaga({ id }) {
   try {

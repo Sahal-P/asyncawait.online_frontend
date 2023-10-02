@@ -1,27 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef} from "react";
 import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
-import CircularProgress from "@mui/material/CircularProgress";
 import bg from "../../assets/image/wa.png";
 import ChatProfileHeader from "../header/ChatProfileHeader";
 import ChatTextArea from "./message/ChatTextArea";
 import Menu from "../Menu";
 import MessageSelf from "./message/MessageSelf";
 import MessageSender from "./message/MessageSender";
-import { useDispatch, useSelector } from "react-redux";
-import { UserContext } from "../../pages/Home";
-import moment from "moment";
-import { MESSAGE_TYPE } from "../../types";
-import { GET_CHAT_DETAILS } from "../../redux/sagas/types";
-import { CHAT_WS, WS } from "../../apis/socket";
-import {
-  MESSAGE_DELIVERD,
-  MESSAGE_READED,
-  TEXT_MESSAGE,
-} from "../../types/Message";
-import { ChatActions } from "../../redux/slice/chatDetailsSlice";
-import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
 import MessageDateInfo from "./message/MessageDateInfo";
 import ChatBoxSkeleton from "../skeleton/ChatBoxSkeleton";
 import useFetchChatDetails from "../../hooks/useFetchChatDetails";
@@ -102,18 +88,6 @@ const ChatBox = ({ NetworkOnline }) => {
               <MessageDateInfo />
             </>
           )}
-
-          {/* <LinearProgress color="success" /> */}
-          {/* <CircularProgress sx={{ color: "white" }} /> */}
-          {/* </Slide> */}
-
-          {/* {messages.map((message) =>
-            message.sender === user.id ? (
-              <MessageSelf key={message.id} message={message} messages={messages} />
-            ) : (
-              <MessageSender key={message.id} message={message} />
-            )
-          )} */}
         </div>
 
         <ChatTextArea send_message={send_message} />

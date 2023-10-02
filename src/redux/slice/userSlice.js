@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const name = "user";
 const initialState = createinitialState();
@@ -44,10 +44,9 @@ function createReducers() {
 
     const { content, sender, timestamp, message_type  } = action.payload;
 
-  // Get the message from the state
+  // Get the contact from the state
   const contact = state.contacts.find((contact) => contact.contact.id === sender);
-    console.log(contact,"kittiyeeee");
-  // If the message exists, update its status
+  // If the contact exists, update its status
   if (contact) {
     contact.last_activity = content;
     contact.last_activity_type = "Message";
@@ -55,7 +54,6 @@ function createReducers() {
     contact.last_activity_time = timestamp ;
   }
 
-  // Return the new state
   return state;
 }
 }
