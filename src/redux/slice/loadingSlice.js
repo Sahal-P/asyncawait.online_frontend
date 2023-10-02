@@ -1,6 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { createSlice } from "@reduxjs/toolkit";
 
 const name = "loading";
 const initialState = createinitialState();

@@ -21,7 +21,6 @@ const Login = () => {
     event.preventDefault();
     let phoneNumber = user.phone_number;
     if (!phoneNumber.startsWith("+91")) {
-      phoneNumber = phoneNumber;
       phoneNumber = "+91" + phoneNumber;
     }
 

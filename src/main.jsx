@@ -1,14 +1,12 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import { Provider, useDispatch } from "react-redux";
+import { Provider} from "react-redux";
 import store, { persistor } from "./store.js";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { SET_LOADING } from "./redux/sagas/types/index.js";
 
 const queryClient = new QueryClient(); 
 

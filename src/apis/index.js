@@ -1,7 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import generateCookieExpirationDates from "../utils/cookieUtils";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { LOGOUT_USER, SET_LOADING } from "../redux/sagas/types";
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true;
 
 let needRefresh = false;
@@ -13,7 +17,19 @@ axios.interceptors.response.use(
     if (error.response.status === 401 && !needRefresh && RefreshToken) {
       needRefresh = true;
       const response = await axios.post("auth/refresh-token", {"token": RefreshToken});
-
+      if (response.status === 200) {
+        const {oneDayLater} = generateCookieExpirationDates();
+        Cookies.set(
+          import.meta.env.VITE_ACCESS_TOKEN,
+          response.data.access_token,
+          {expires: oneDayLater}
+        );
+      }else {
+        const dispatch = useDispatch()
+        const navigate = useNavigate()
+        dispatch({ type: SET_LOADING, payload: true });
+        dispatch({ type: LOGOUT_USER, payload: {} , navigate });
+      }
       if (response.status === 200) {
         return axios(error.config);
       }
@@ -41,34 +57,34 @@ axios.interceptors.request.use(
   }
 );
 
-export const getUsersAPI = async () => axios.get("users");
-export const getUserAPI = async () => axios.get("");
+export const getUsersAPI = async () => await axios.get("users");
+export const getUserAPI = async () => await axios.get("");
 
-export const getFriendsAPI = async () => axios.get(`friends`);
-export const getContactsAPI = async () => axios.get(`chat/get_contacts`);
-export const registerAPI = async (user) => axios.post(`auth/register`, user);
+export const getFriendsAPI = async () => await axios.get(`friends`);
+export const getContactsAPI = async () => await axios.get(`chat/get_contacts`);
+export const registerAPI = async (user) => await axios.post(`auth/register`, user);
 
 export const createProfileAPI = async (profile) =>
-  axios.post(`auth/create-profile`, profile, {
+  await axios.post(`auth/create-profile`, profile, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 
 export const LoginAPI = async (user) =>
-  axios.post(`auth/login`, user, {
+  await axios.post(`auth/login`, user, {
     withCredentials: true,
   });
 export const LogoutAPI = async (id) =>
-  axios.post(`auth/logout`, id, {
+  await axios.post(`auth/logout`, id, {
     withCredentials: true,
   });
-export const messageUnknown = async (id) => axios.post(`chat/unknown`, { id });
+export const messageUnknown = async (id) => await axios.post(`chat/unknown`, { id });
 export const getChatDetails = async (id) =>
-  axios.post(`chat/get_chat_details`, { id });
+  await axios.post(`chat/get_chat_details`, { id });
 
-export const createUserAPI = async (user) => axios.post(`/users`, user);
-export const getContactLastMessage = async (conatct_id) => axios.get(`/get_contact_last_message`, conatct_id);
+export const createUserAPI = async (user) => await axios.post(`/users`, user);
+export const getContactLastMessage = async (conatct_id) => await axios.get(`/get_contact_last_message`, conatct_id);
 export const updateUserAPI = async (user) =>
-  axios.post(`/users/${user.id}`, user);
-export const deleteUserByIdAPI = async (id) => axios.post(`/users/${id}`);
+  await axios.post(`/users/${user.id}`, user);
+export const deleteUserByIdAPI = async (id) => await axios.post(`/users/${id}`);

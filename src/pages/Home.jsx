@@ -4,13 +4,7 @@ import SelectSection from "../components/contacts/SelectSection";
 import ChatBox from "../components/chat/ChatBox";
 import { useDispatch, useSelector } from "react-redux";
 import { createContext } from "react";
-import {
-  GET_CHAT_DETAILS,
-  GET_CONTACTS,
-  GET_FRIENDS,
-  GET_USERS,
-  SET_LOADING,
-} from "../redux/sagas/types";
+import { SET_LOADING } from "../redux/sagas/types";
 import AddUser from "../components/users/AddUser";
 import ImageDetails from "../components/ImageDetails";
 import ProfileSidebar from "../components/sidebar/ProfileSidebar";
@@ -20,7 +14,7 @@ import ConnectingSpinner from "../components/common/ConnectingSpinner";
 import Dexie from "dexie";
 import InitialSideBarSkeleton from "../components/skeleton/InitialSideBarSkeleton";
 import { useQuery } from "react-query";
-import { getContactsAPI, getUsersAPI } from "../apis";
+import { getContactsAPI } from "../apis";
 import { userActions } from "../redux/slice/userSlice";
 import ChatSkeleton from "../components/skeleton/ChatSkeleton";
 import { NOTIFICATION_TYPE } from "../types";
@@ -38,30 +32,18 @@ const Home = () => {
   const [sideBar, setSidebar] = useState(false);
   const [chatDetails, setChatDetails] = useState(false);
 
-    // const { data: contactsData, isLoading: contactsLoading, isError: contactsError } = useQuery('contacts', getContactsAPI);
-    // const { data: usersData, isLoading: usersLoading, isError: usersError } = useQuery('users', getUsersAPI);
-    // if (!contactsLoading && !contactsError && !usersLoading && !usersError) {
-    //   dispatch(usersActions.setUsers(usersData));
-    //   dispatch(userActions.setContacts(contactsData));
-    // }
-
-    const { data: contactsData,isLoading: contactsLoading, isError: contactsError} = useQuery('contacts', getContactsAPI, {
+    const { data: contactsData, isLoading: contactsLoading, isError: contactsError} = useQuery('contacts', getContactsAPI, {
       onSuccess: (contactsData) => {
         // setContacts(contactsData.data)
         dispatch(userActions.setContacts(contactsData.data));
       },
     });
-  
-    
 
   useEffect(() => {
-    const db = new Dexie("messageDB");
-    db.version(1).stores({
-      messages: "id, chatId",
-    });
-    
-    // dispatch({ type: GET_CONTACTS });
-    // dispatch({ type: GET_USERS });
+    // const db = new Dexie("messageDB");
+    // db.version(1).stores({
+    //   messages: "id, chatId",
+    // });
 
     const handleOnline = () => {
       setNetworkOnline(true);
