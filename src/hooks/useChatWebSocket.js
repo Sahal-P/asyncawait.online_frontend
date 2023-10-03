@@ -75,7 +75,7 @@ export function useChatWebSocket(NetworkOnline,) {
           }
         }
         if (data.message_type === NOTIFICATION_TYPE["USER_LEFT"]){
-          console.log(data, "user left");
+          // user left
         }
       };
 

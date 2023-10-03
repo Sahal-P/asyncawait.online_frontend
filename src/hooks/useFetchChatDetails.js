@@ -16,7 +16,6 @@ export default function useFetchChatDetails(selectedContactId) {
       staleTime:Infinity,
       cacheTime:0,
       onSuccess: (res) => {
-        console.log('quer one 1----',res);
         dispatch(ChatActions.setChatId(res.data.chat.id));
         dispatch(ChatActions.setMessages(res.data.message));  
       }

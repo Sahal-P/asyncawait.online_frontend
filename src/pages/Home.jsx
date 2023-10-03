@@ -37,6 +37,8 @@ const Home = () => {
         // setContacts(contactsData.data)
         dispatch(userActions.setContacts(contactsData.data));
       },
+      staleTime:Infinity,
+      cacheTime:0,
     });
 
   useEffect(() => {
@@ -74,7 +76,6 @@ const Home = () => {
     const handleSocketMessage = (e) => {
       const data = JSON.parse(e.data);
       if (data.message_type === NOTIFICATION_TYPE["NEW_MESSAGE"]) {
-        console.log(data);
         dispatch(userActions.editContact(data))
     }
   }
