@@ -7,6 +7,7 @@ import useImageLoader, {
 } from "../../hooks/useImageLoader";
 import Image from "../common/Image";
 import UserCardDetails from "./UserCardDetails";
+import { userActions } from "../../redux/slice/userSlice";
 
 const UserCard = ({ user }) => {
   const [isReaded, setIsReaded] = useState(true);
@@ -26,6 +27,7 @@ const UserCard = ({ user }) => {
   function readed() {
     setIsReaded(false);
     dispatch(selectedActions.setUser(user));
+    dispatch(userActions.setContactAsReaded(user.id))
     // dispatch({ type: GET_CHAT_DETAILS, id: user.contact.id });
     // useFetchChatDetails(user.contact.id)
   }

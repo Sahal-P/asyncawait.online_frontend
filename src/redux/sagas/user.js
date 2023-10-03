@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   getUserAPI,
   getUsersAPI,
@@ -46,14 +47,22 @@ export function* getUsersSaga() {
 
 export function* messageUnknownSaga({ id }) {
   try {
-    const contact = yield messageUnknown(id);
-    yield put(userActions.addContact(contact.data));
+    const response = yield messageUnknown(id);
+    if (response?.status === 200) {
+      yield put(userActions.addContact(response.data));
     yield put(
-      selectedActions.setUser(contact.data)
+      selectedActions.setUser(response.data)
     );
-    // yield put({ type: GET_CHAT_DETAILS, id: contact.data.contact.id });
+    // yield put({ type: GET_CHAT_DETAILS, id: response.data.contact.id });
+    }
+    // if (response?.name === "AxiosError") {
+    //   if (response.response.status === 409) {
+    //     toast.warn(response.response?.data?.detail)
+    //   }
+    // }
+    
   } catch (err) {
-    console.log(err);
+    toast.error("somthing went wrong")
   }
 }
 

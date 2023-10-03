@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useRef} from "react";
 import Stack from "@mui/material/Stack";
@@ -7,14 +8,16 @@ import ChatTextArea from "./message/ChatTextArea";
 import Menu from "../Menu";
 import MessageSelf from "./message/MessageSelf";
 import MessageSender from "./message/MessageSender";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MessageDateInfo from "./message/MessageDateInfo";
 import ChatBoxSkeleton from "../skeleton/ChatBoxSkeleton";
 import useFetchChatDetails from "../../hooks/useFetchChatDetails";
 import { useChatWebSocket } from "../../hooks/useChatWebSocket";
+import { SET_MESSAGE_STATUS } from "../../redux/sagas/types";
 
 const ChatBox = ({ NetworkOnline }) => {
   const chatboxRef = useRef(null);
+  const dispatch = useDispatch()
   const selected = useSelector((state) => state.selected.user);
   const history = useSelector((state) => state.chat.messages);
   const user = useSelector((state) => state.user.user);
@@ -36,8 +39,18 @@ const ChatBox = ({ NetworkOnline }) => {
   useEffect(() => {
     chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
     handleScroll();
+    if (history.length !== 0) {
+      const sentAndDeliveredMessages = history.filter(obj =>
+        obj.sender !== user.id &&
+        obj.status === "SENT" || obj.status === "DELIVERED"
+      );
+      const idsOfSentAndDeliveredMessages = sentAndDeliveredMessages.map(obj => obj.id);
+      if (sentAndDeliveredMessages.length > 0) {
+        dispatch({type: SET_MESSAGE_STATUS, ids: idsOfSentAndDeliveredMessages})
+      }
+    }
     
-  }, [history, isLoading]);
+  }, [history]);
 
   useEffect(()=>{
     

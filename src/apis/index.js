@@ -4,6 +4,7 @@ import generateCookieExpirationDates from "../utils/cookieUtils";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LOGOUT_USER, SET_LOADING } from "../redux/sagas/types";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true;
@@ -35,6 +36,14 @@ axios.interceptors.response.use(
       }
     }
     needRefresh = false;
+
+    // console.log(error,'errrrrr');
+    if (error?.name === "AxiosError") {
+      const status = error.response?.status
+      if (error.response?.data?.detail && status === 400 || status === 500 || status === 409) {
+        return toast.warn(error.response?.data?.detail)
+      }
+    }
 
     return error;
   }
@@ -88,3 +97,7 @@ export const getContactLastMessage = async (conatct_id) => await axios.get(`/get
 export const updateUserAPI = async (user) =>
   await axios.post(`/users/${user.id}`, user);
 export const deleteUserByIdAPI = async (id) => await axios.post(`/users/${id}`);
+
+
+export const setMessageStatus = async (message_ids) => await axios.post('chat/set_message_status', { message_ids })
+export const getContactDetails = async (id) => await axios.post('chat/get_contact_details', { id })
