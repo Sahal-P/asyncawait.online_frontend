@@ -9,7 +9,7 @@ import { ImageActions } from "../../redux/slice/imageViewSlice";
 
 const ProfileSidebar = ({ setSidebar, sideBar, user }) => {
   const dispatch = useDispatch()
-  const imgUrl = `http://localhost:8000${user?.profile?.profile_picture ? user.profile.profile_picture : "/media/"+user?.profile?.default_avatar }`
+  const imgUrl = `${user?.profile?.profile_picture ? user.profile.profile_picture : import.meta.env.VITE_S3_MEDIA_URL +user?.profile?.default_avatar }`
   useEffect(() => {
   },[user])
   return (

@@ -38,10 +38,10 @@ function formatLastSeen(lastSeen) {
 
 const ChatProfileHeader = ({ user, chatWSConnected }) => {
   const { setChatDetails, chatDetails } = useContext(UserContext);
-  const imgUrl = `http://localhost:8000${
+  const imgUrl = `${
     user?.contact?.profile?.profile_picture
       ? user?.contact?.profile?.profile_picture
-      : "/media/" + user?.contact?.profile?.default_avatar
+      : import.meta.env.VITE_S3_MEDIA_URL + user?.contact?.profile?.default_avatar
   }`;
   const option = false;
 

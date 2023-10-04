@@ -8,10 +8,10 @@ import Image from "../common/Image";
 
 const NavBarProfileAvatar = () => {
   const { user } = useContext(UserContext);
-  const imgUrl = `http://localhost:8000${
+  const imgUrl = `${
     user?.profile?.profile_picture
       ? user.profile.profile_picture
-      : "/media/" + user?.profile?.default_avatar
+      : import.meta.env.VITE_S3_MEDIA_URL + user?.profile?.default_avatar
   }`
   return (
     <Image

@@ -13,10 +13,10 @@ const UserCard = ({ user }) => {
   const [isReaded, setIsReaded] = useState(true);
   const [lastMessage, setLastMessage] = useState("")
   const dispatch = useDispatch();
-  const imgUrl = `http://localhost:8000${
+  const imgUrl = `${
     user?.contact?.profile?.profile_picture
       ? user.contact.profile.profile_picture
-      : "/media/" + user?.contact?.profile?.default_avatar
+      : import.meta.env.VITE_S3_MEDIA_URL + user?.contact?.profile?.default_avatar
   }`;
 
   
