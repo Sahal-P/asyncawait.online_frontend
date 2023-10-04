@@ -5,7 +5,7 @@ import Image from "../common/Image";
 
 const UserSearchCard = ({ user }) => {
   const dispatch = useDispatch();
-  const imgUrl = `http://localhost:8000${user?.profile_picture ? user.profile_picture : "/media/"+user?.default_avatar }`
+  const imgUrl = `${user?.profile_picture ? user.profile_picture : import.meta.env.VITE_S3_MEDIA_URL+user?.default_avatar }`
   const handleAddtoFriends = () => {
     dispatch({ type: MESSAGE_UNKNOWN, id: user?.user });
   };
