@@ -7,6 +7,8 @@ import { createProfileAPI } from "../apis";
 import { useMutation } from "react-query";
 import { LOGIN_USER, SET_LOADING } from "../redux/sagas/types";
 import Cookies from "js-cookie";
+import AuthWrapper from "../components/auth/AuthWrapper";
+import { TextField } from "@mui/material";
 
 const Onboarding = () => {
   const dispatch = useDispatch();
@@ -57,6 +59,7 @@ const Onboarding = () => {
       } else {
         const match = image.match(/\/(\d+)\.png$/);
         formData.append("default_avatar", match[1]);
+        console.log(match[1]);
       }
     }
     formData.append("picture_blurhash", imageBlurHash);
@@ -65,104 +68,92 @@ const Onboarding = () => {
     mutation.mutate(formData);
   };
 
-  useEffect(()=>{
-
-  },[imageBlurHash])
+  useEffect(() => {}, [imageBlurHash]);
   return (
-    <section className="bg-secondary">
-      <div className="flex h-screen flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
-          {/* <img
-            className="w-8 h-8 mr-2"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-            alt="logo"
-          /> */}
-          Async Await
-        </a>
-        <div className="w-full bg-primary rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create Profile
-            </h1>
-            <form className="space-y-4 md:space-y-2" onSubmit={handleSubmit}>
-              <div className="text-center">
-                {/* <Blurhash
-                  hash={imageBlurHash}
-                  width={400}
-                  height={400}
-                  resolutionX={32}
-                  resolutionY={32}
-                  punch={1}
-                /> */}
-                <Avatar
-                  type="xl"
-                  image={image}
-                  setImage={setImage}
-                  setUploadedImage={setUploadedImage}
-                  setIsUploadedImage={setIsUploadedImage}
-                  setImageBlurHash={setImageBlurHash}
-                />
-                <label
-                  htmlFor="email"
-                  className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Change Profile Photo
-                </label>
-                <span className="text-xs text-red-600 ">Invalid Email</span>
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your username
-                </label>
-                <input
-                  onChange={handleChange("username")}
-                  value={profile.username}
-                  type="text"
-                  name="username"
-                  id="username"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="example_123"
-                  required=""
-                />
-              </div>
-              <span className="text-xs text-red-600">Invalid Username</span>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  About
-                </label>
-                <input
-                  onChange={handleChange("about")}
-                  value={profile.about}
-                  type="text"
-                  name="about"
-                  id="about"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="about"
-                />
-              </div>
-              <span className="text-xs text-red-600">Invalid About</span>
-
-              <button
-                type="submit"
-                disabled={mutation.isLoading}
-                className="w-full bg-secondary text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                {mutation.isLoading ? "Creating..." : "Create Profile"}
-              </button>
-            </form>
-          </div>
+    <AuthWrapper type="Create Profile">
+      <form className="space-y-4 md:space-y-2" onSubmit={handleSubmit}>
+        <div className="text-center">
+          <Avatar
+            type="xl"
+            image={image}
+            setImage={setImage}
+            setUploadedImage={setUploadedImage}
+            setIsUploadedImage={setIsUploadedImage}
+            setImageBlurHash={setImageBlurHash}
+          />
+          <label
+            htmlFor="email"
+            className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Change Profile Photo
+          </label>
         </div>
-      </div>
-    </section>
+        <div>
+          <TextField
+            onChange={handleChange("username")}
+            value={profile.username}
+            label="Username"
+            placeholder="example_123"
+            name="username"
+            variant="standard"
+            color="success"
+            className="w-full text-white"
+            type="text"
+            style={{
+              color: "white",
+            }}
+            InputLabelProps={{
+              style: {
+                color: "white",
+              },
+            }}
+            InputProps={{
+              inputProps: {
+                style: {
+                  color: "white",
+                },
+              },
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            onChange={handleChange("about")}
+            value={profile.about}
+            label="About"
+            placeholder="about"
+            name="about"
+            variant="standard"
+            color="success"
+            className="w-full text-white"
+            type="text"
+            style={{
+              color: "white",
+            }}
+            InputLabelProps={{
+              style: {
+                color: "white",
+              },
+            }}
+            InputProps={{
+              inputProps: {
+                style: {
+                  color: "white",
+                },
+              },
+            }}
+          />
+        </div>
+            <div className="pt-5"/>
+        <button
+          type="submit"
+          disabled={mutation.isLoading}
+          className="w-full bg-secondary text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        >
+          {mutation.isLoading ? "Creating..." : "Create Profile"}
+        </button>
+      </form>
+    </AuthWrapper>
   );
 };
 

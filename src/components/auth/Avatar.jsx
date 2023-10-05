@@ -23,10 +23,10 @@ const Avatar = ({ type, image, setImage, setUploadedImage, setIsUploadedImage, s
         setisContextMenuCordinate({x: e.pageX, y: e.pageY})
     } 
     const contextMenuOptions = [
-        { name: "Take Photo", callback: () => {
-            setShowCapturePhoto(true)
-        }},
-        { name: "Choose from Library", callback: () => {
+        // { name: "Take Photo", callback: () => {
+        //     setShowCapturePhoto(true)
+        // }},
+        { name: "Choose Avatar", callback: () => {
             setshowPhotoLibrary(true)
         }},
         { name: "Upload Photo", callback: () => {

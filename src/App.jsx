@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { SET_LOADING } from "./redux/sagas/types";
 import { PrivateRoute } from "./routes/PrivateRoute";

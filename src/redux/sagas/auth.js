@@ -22,12 +22,11 @@ export function* RegisterAPIsaga({ payload, navigate }) {
       yield put(LoadingActions.setLoading(false));
       navigate(`/onboarding/${response.data.id}`)
     }
-    toast.error("Error creating user"); 
     yield put(LoadingActions.setLoading(false));
     //   yield put(userActions.setUser(user.data));
   } catch (error) {
     yield put(LoadingActions.setLoading(false));
-    toast.error("Somthing Went Wrong");
+    toast.error("Error creating user");
   }
 }
 
@@ -61,7 +60,6 @@ export function* LoginAPIsaga({ payload, navigate }) {
     if (error.code === "ERR_NETWORK") {
       toast.error(`${error.message} Please Try Again`);
     } else if (error.code === "ERR_BAD_REQUEST") {
-      console.log(error.code);
       toast.error("Invalid Credentials");
     } else {
       toast.error("Somthing Went Wrong");
