@@ -11,7 +11,6 @@ import ProfileSidebar from "../components/sidebar/ProfileSidebar";
 import ChatDetails from "../components/chat/profile/ChatDetails";
 import { USER_WS, WS } from "../apis/socket";
 import ConnectingSpinner from "../components/common/ConnectingSpinner";
-import Dexie from "dexie";
 import InitialSideBarSkeleton from "../components/skeleton/InitialSideBarSkeleton";
 import { useQuery } from "react-query";
 import { getContactsAPI } from "../apis";
@@ -32,14 +31,18 @@ const Home = () => {
   const [sideBar, setSidebar] = useState(false);
   const [chatDetails, setChatDetails] = useState(false);
 
-    const { data: contactsData, isLoading: contactsLoading, isError: contactsError} = useQuery('contacts', getContactsAPI, {
-      onSuccess: (contactsData) => {
-        // setContacts(contactsData.data)
-        dispatch(userActions.setContacts(contactsData.data));
-      },
-      staleTime:Infinity,
-      cacheTime:0,
-    });
+  const {
+    data: contactsData,
+    isLoading: contactsLoading,
+    isError: contactsError,
+  } = useQuery("contacts", getContactsAPI, {
+    onSuccess: (contactsData) => {
+      // setContacts(contactsData.data)
+      dispatch(userActions.setContacts(contactsData.data));
+    },
+    staleTime: Infinity,
+    cacheTime: 0,
+  });
 
   useEffect(() => {
     // const db = new Dexie("messageDB");
@@ -76,34 +79,35 @@ const Home = () => {
     const handleSocketMessage = (e) => {
       const data = JSON.parse(e.data);
       if (data.message_type === NOTIFICATION_TYPE["NEW_MESSAGE"]) {
-        dispatch(userActions.editContact(data))
-    }
-  }
+        dispatch(userActions.editContact(data));
+      }
+    };
+    const handleSocketOpen = (e) => {
+      setUserWSConnected(true);
+    };
+
+    const handleSocketError = (e) => {
+      setUserWSConnected(false);
+      setTimeout(connectWebSocket, 5000);
+    };
 
     const connectWebSocket = () => {
-      console.log("first --");
       const _socket = new WebSocket(user_ws_url);
-      const handleSocketOpen = (e) => {
-        setUserWSConnected(true);
-      };
 
-      const handleSocketError = (e) => {
-        setUserWSConnected(false);
-        setTimeout(connectWebSocket, 5000);
-      };
-     
       _socket.addEventListener("open", handleSocketOpen);
       _socket.addEventListener("close", handleSocketError);
       _socket.addEventListener("message", handleSocketMessage);
     };
-    if (user_ws_url){
+    if (user_ws_url) {
       connectWebSocket();
     }
     dispatch({ type: SET_LOADING, payload: false });
     return () => {
       if (_socket) {
-        _socket.removeEventListener("message", handleSocketMessage);
         _socket.close(); // Close the socket when the component unmounts
+        _socket.removeEventListener("message", handleSocketMessage);
+        _socket.removeEventListener("open", handleSocketOpen);
+        _socket.removeEventListener("close", handleSocketError);
       }
     };
   }, [NetworkOnline]);
@@ -111,7 +115,7 @@ const Home = () => {
   useEffect(() => {
     if (Object.keys(selected).length > 0) {
       setChatBox(true);
-    }else {
+    } else {
       setChatBox(false);
     }
   }, [selected, chatBox]);
@@ -120,41 +124,40 @@ const Home = () => {
     <UserContext.Provider
       value={{ user, chatDetails, setChatDetails, NetworkOnline }}
     >
-      
       <ConnectingSpinner userWSConnected={userWSConnected} />
-      <Suspense fallback={<ChatSkeleton/>}>
-      <section className="w-full h-screen flex bg-chat-bg overflow-hidden md:justify-center pt-4 pb-4">
-        <ImageDetails />
-        <Status/>
-        <div className="h-full w-[410px] bg-secondary border-r border-slate-700 relative">
-          {contactsLoading ? <InitialSideBarSkeleton /> : <>
-              <ProfileSidebar
-                setSidebar={setSidebar}
-                sideBar={sideBar}
-                user={user}
-              />
-              <NavBar setSidebar={setSidebar} />
-              <SelectSection />
-            </>}
-            
-            
-        </div>
-        
-        
-        {chatBox ? (
-          <>
-            <ChatBox NetworkOnline={NetworkOnline} />
-            <ChatDetails
-              chatDetails={chatDetails}
-              setChatDetails={setChatDetails}
-            />
-          </>
-        ) : (
-            <AddUser />
-        )}
+      <Suspense fallback={<ChatSkeleton />}>
+        <section className="w-full h-screen flex bg-chat-bg overflow-hidden md:justify-center pt-4 pb-4">
+          <ImageDetails />
+          <Status />
+          <div className="h-full w-[410px] bg-secondary border-r border-slate-700 relative">
+            {contactsLoading ? (
+              <InitialSideBarSkeleton />
+            ) : (
+              <>
+                <ProfileSidebar
+                  setSidebar={setSidebar}
+                  sideBar={sideBar}
+                  user={user}
+                />
+                <NavBar setSidebar={setSidebar} />
+                <SelectSection />
+              </>
+            )}
+          </div>
 
-      </section>
-        </Suspense>
+          {chatBox ? (
+            <>
+              <ChatBox NetworkOnline={NetworkOnline} />
+              <ChatDetails
+                chatDetails={chatDetails}
+                setChatDetails={setChatDetails}
+              />
+            </>
+          ) : (
+            <AddUser />
+          )}
+        </section>
+      </Suspense>
     </UserContext.Provider>
   );
 };

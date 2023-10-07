@@ -38,7 +38,7 @@ const UserCardDetails = ({contact, isReaded}) => {
       
         <div>
           <h1 className="capitalize text-white">
-            {contact?.contact?.profile?.username}
+          {contact?.contact?.profile?.username ? contact?.contact?.profile?.username : contact?.contact?.phone_number}
           </h1>
           {isLoading ? <Skeleton
         sx={{ bgcolor: "#253036", borderRadius: "10px", marginTop: "0.5rem" }}

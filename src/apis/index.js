@@ -66,11 +66,22 @@ axios.interceptors.request.use(
   }
 );
 
-export const getUsersAPI = async () => await axios.get("users");
-export const getUserAPI = async () => await axios.get("");
+// Details API's
 
-export const getFriendsAPI = async () => await axios.get(`friends`);
+export const getChatDetails = async (id) =>
+  await axios.post(`chat/get_chat_details`, { id });
+
+export const getContactDetails = async (id) => await axios.post('chat/get_contact_details', { id })
+export const getContactLastMessage = async (conatct_id) => await axios.get(`/get_contact_last_message`, conatct_id);
+
+// Users API's
+
+export const getUsersAPI = async () => await axios.get("users");
+
 export const getContactsAPI = async () => await axios.get(`chat/get_contacts`);
+
+// Auth API's
+
 export const registerAPI = async (user) => await axios.post(`auth/register`, user);
 
 export const createProfileAPI = async (profile) =>
@@ -84,20 +95,26 @@ export const LoginAPI = async (user) =>
   await axios.post(`auth/login`, user, {
     withCredentials: true,
   });
+
 export const LogoutAPI = async (id) =>
   await axios.post(`auth/logout`, id, {
     withCredentials: true,
   });
-export const messageUnknown = async (id) => await axios.post(`chat/unknown`, { id });
-export const getChatDetails = async (id) =>
-  await axios.post(`chat/get_chat_details`, { id });
 
-export const createUserAPI = async (user) => await axios.post(`/users`, user);
-export const getContactLastMessage = async (conatct_id) => await axios.get(`/get_contact_last_message`, conatct_id);
+// update API's
+
 export const updateUserAPI = async (user) =>
   await axios.post(`/users/${user.id}`, user);
-export const deleteUserByIdAPI = async (id) => await axios.post(`/users/${id}`);
-
 
 export const setMessageStatus = async (message_ids) => await axios.post('chat/set_message_status', { message_ids })
-export const getContactDetails = async (id) => await axios.post('chat/get_contact_details', { id })
+
+// delete API's
+export const deleteUserByIdAPI = async (id) => await axios.post(`/users/${id}`);
+
+// Create API's
+
+export const messageUnknown = async (id) => await axios.post(`chat/unknown`, { id });
+
+
+
+
