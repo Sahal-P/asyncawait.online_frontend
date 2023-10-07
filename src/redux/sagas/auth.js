@@ -70,7 +70,6 @@ export function* LoginAPIsaga({ payload, navigate }) {
 export function* LogOutAPIsaga({ payload, navigate }) {
   try {
     const response = yield LogoutAPI(payload);
-    console.log(response);
     if (response.status === 204) {
       Cookies.remove("_X_identifier");
       Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN);

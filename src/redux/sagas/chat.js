@@ -16,7 +16,6 @@ export function* GetChatDetailsSaga({ id }) {
 export function* SetChatDetailsSaga(action) {
   try {
     const { data } = action;
-    console.log((data));
     yield put(ChatActions.setChatId(data.chat.id));
     yield put(ChatActions.setMessages(data.message));
 
@@ -28,12 +27,12 @@ export function* SetChatDetailsSaga(action) {
 export function* SetMessageStatusSaga({ids}) {
   try {
     
-    const details = yield setMessageStatus(ids);
+    yield setMessageStatus(ids);
     // yield put(ChatActions.setChatId(data.chat.id));
     // yield put(ChatActions.setMessages(data.message));
 
   } catch (error) {
-    console.error("Error occurred during loading", error);
+    console.error("Error occurred during the update of MessageStatus", error);
   }
 }
 

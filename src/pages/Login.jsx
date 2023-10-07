@@ -40,12 +40,14 @@ const Login = () => {
         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
-              htmlFor="email"
+              htmlFor="phone_number"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Phone
             </label>
             <TextField
+              autoComplete="on"
+              id="phone_number"
               onChange={handleChange("phone_number")}
               value={user.phone_number}
               label="Enter your phone number"
@@ -83,7 +85,7 @@ const Login = () => {
             <TextField
               onChange={handleChange("password")}
               value={user.password}
-              id="standard-textarea"
+              id="password"
               label="Enter your password"
               placeholder="••••••••"
               variant="standard"

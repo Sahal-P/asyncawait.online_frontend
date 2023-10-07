@@ -81,12 +81,11 @@ const Onboarding = () => {
             setIsUploadedImage={setIsUploadedImage}
             setImageBlurHash={setImageBlurHash}
           />
-          <label
-            htmlFor="email"
+          <p
             className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Change Profile Photo
-          </label>
+          </p>
         </div>
         <div>
           <TextField
