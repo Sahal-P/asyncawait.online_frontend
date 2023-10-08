@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { REGISTER_USER, SET_LOADING } from "../redux/sagas/types";
 import { toast } from "react-toastify";
 import AuthWrapper from "../components/auth/AuthWrapper";
-import AuthButton from "../components/button/authButton";
+import AuthButton from "../components/button/AuthButton";
 
 import { TextField } from "@mui/material";
 

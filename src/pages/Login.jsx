@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { TextField } from "@mui/material";
 import AuthWrapper from "../components/auth/AuthWrapper";
-import AuthButton from "../components/button/authButton";
+import AuthButton from "../components/button/AuthButton";
 import { toast } from "react-toastify";
 
 const Login = () => {
