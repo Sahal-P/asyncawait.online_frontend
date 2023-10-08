@@ -8,7 +8,7 @@ import { rootSaga } from "./redux/sagas";
 const rootPersistConfig = {
   key: "root",
   storage,
-  blacklist: ["users", "image", "status"],
+  blacklist: ["users", "image", "status"], // disabled perist 
 };
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
