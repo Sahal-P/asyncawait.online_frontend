@@ -27,7 +27,9 @@ const UserCardDetails = ({contact, isReaded}) => {
       
     })
     useEffect(()=>{
-      mutate(contact?.contact?.id)
+      if (contact?.contact?.id) {
+        mutate(contact?.contact?.id)
+      }
     },[])
     useEffect(()=>{
       

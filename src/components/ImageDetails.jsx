@@ -8,7 +8,6 @@ const ImageDetails = () => {
   const dispatch = useDispatch()
   const ImageState = useSelector((state) => state.image);
   useEffect(()=>{
-    console.log(ImageState);
   },[ImageState])
   return (
     <div className={`${ImageState.view ? "block " : "hidden "}w-full h-full bg- fixed z-[999] inset-0 backdrop-blur-md`}>

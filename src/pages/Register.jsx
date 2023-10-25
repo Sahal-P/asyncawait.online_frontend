@@ -78,7 +78,7 @@ const Register = () => {
             onChange={handleChange("email")}
             value={user.email}
             label="Email"
-            placeholder="000 000 0000"
+            placeholder="example@gmail.com"
             name="email"
             variant="standard"
             color="success"
@@ -136,7 +136,7 @@ const Register = () => {
             onChange={handleChange("password")}
             value={user.password}
             label="Password"
-            placeholder="000 000 0000"
+            placeholder="********"
             name="password"
             variant="standard"
             color="success"
@@ -165,7 +165,7 @@ const Register = () => {
             onChange={handleChange("confirm_password")}
             value={user.confirm_password}
             label="Confirm Password"
-            placeholder="000 000 0000"
+            placeholder="********"
             name="confirm_password"
             variant="standard"
             color="success"

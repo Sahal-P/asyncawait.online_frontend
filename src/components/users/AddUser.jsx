@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import UserSearchBar from "./UserSearchBar";
 import UserSearchCard from "./UserSearchCard";
-import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { getUsersAPI } from "../../apis";
-import { usersActions } from "../../redux/slice/usersSlice";
 import UsersCardSkeleton from "../skeleton/UsersCardSkeleton";
 
 const AddUser = () => {
@@ -12,7 +10,7 @@ const AddUser = () => {
   // const users = useSelector((state) => state.users.users);
   const [users, setUsers] = useState([])
 
-  const {isLoading: usersLoading, isError: usersError} = useQuery('users', getUsersAPI, {
+  const {isLoading: usersLoading, isError} = useQuery('users', getUsersAPI, {
     onSuccess: (usersData) => {
       // dispatch(usersActions.setUsers(usersData.data));
       setUsers(usersData.data)
@@ -47,8 +45,6 @@ const AddUser = () => {
       </div>
     )
       }
-      
-      
       <span className="w-full h-[6px] bg-line block mt-auto"></span>
     </div>
   );

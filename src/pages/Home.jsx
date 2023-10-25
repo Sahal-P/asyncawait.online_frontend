@@ -74,7 +74,6 @@ const Home = () => {
 
     let user_ws_url = `${WS}${USER_WS}${user.id}/`;
     let _socket = null;
-    console.log(user_ws_url);
 
     const handleSocketMessage = (e) => {
       const data = JSON.parse(e.data);
