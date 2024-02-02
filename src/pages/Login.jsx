@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 import AuthWrapper from "../components/auth/AuthWrapper";
 import AuthButton from "../components/button/AuthButton";
 import { toast } from "react-toastify";
+import { IoCopy } from "react-icons/io5";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -117,6 +118,34 @@ const Login = () => {
             >
               Register here
             </Link>
+            <div className="mt-3">
+              <div className="flex justify-center text-sm font-light text-gray-500 dark:text-gray-400">
+                Demo phone:{" "}
+                <span className="ml-2 font-medium text-primary-600 hover:underline dark:text-primary-500">
+                  9544633437
+                </span>{" "}
+                <IoCopy
+                  onClick={() => {
+                    navigator.clipboard.writeText("9544633437");
+                    toast.success("Copied to clipboard", {autoClose: 500})
+                  }}
+                  className="ml-2 cursor-pointer hover:text-white "
+                />
+              </div>
+              <div className="flex justify-center text-sm font-light text-gray-500 dark:text-gray-400">
+                Demo password:{" "}
+                <span className="ml-2 font-medium text-primary-600 hover:underline dark:text-primary-500">
+                  12345678
+                </span>
+                <IoCopy
+                  onClick={() => {
+                    navigator.clipboard.writeText("12345678");
+                    toast.success("Copied to clipboard", {autoClose: 500})
+                  }}
+                  className="ml-2 cursor-pointer hover:text-white"
+                />
+              </div>
+            </div>
           </p>
         </form>
       </AuthWrapper>
